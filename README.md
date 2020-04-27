@@ -9,20 +9,20 @@ El objectivo del juego es ser el primero en deshacerse de todas sus cartas.
 Para poder jugar, hay que tener o el mismo color o el mismo numero que la carta en el medio, o un comodin.
 
 Comodines : 
-+2 : el jugador siguiente tiene que robar 2 cartas.
-+4 : el jugador siguiente tiene que robar 4 cartas. El jugador que la pone esta carta tambien elige el color actual.
-Pickcolor : el jugador elige el color actual.
-Skip : el jugador siguiente no puede jugar.
-Reverse : se inverte el sentido en cual jugamos ( solo si hay mas de 2 jugadores ).
+    +2 : el jugador siguiente tiene que robar 2 cartas.
+    +4 : el jugador siguiente tiene que robar 4 cartas. El jugador que la pone esta carta tambien elige el color actual.
+    Pickcolor : el jugador elige el color actual.
+    Skip : el jugador siguiente no puede jugar.
+    Reverse : se inverte el sentido en cual jugamos ( solo si hay mas de 2 jugadores ).
 
 Valor :
-Las cartas de numeros tienen como valor el mismo numero que tienen.
-Los comodines tienen valors mas elevados :
-Reverse : 20
-Skip : 20
-+2 : 20
-+4 + Pickcolor: 50
-Pickcolor : 50
+Las cartas de numeros tienen como valor su propio numero.
+Los comodines tienen valores mas elevados :
+    Reverse : 20
+    Skip : 20
+    +2 : 20
+    +4 + Pickcolor: 50
+    Pickcolor : 50
 
 El juego se acaba cuando uno de los jugadores ya no tiene cartas : ha ganado.
 O : si la cuenta atras se acabo. Entonces gana el que menos puntos tiene ( cartas de valor mas baja ).
@@ -42,25 +42,19 @@ Iteracion 1 :
 - El jugador gana cuando se ha deshecho de todas sus cartas. Tiene que tener lo menos puntos posibles
 y en el minimo de tiempo.
 
-Iteracion 2 :
-
-- Mas jugadores
-
-
 ----- User stories -----
-
-Ej : 
-As a - usuario comprador #1
-I want - añadir cosas al carrito #2
-so that - pueda finalizar mi compra #3
-
-Ej : 
-As a - jugador
-I want - poder tocar la pila para robar. Sino, despues de un plazo, se hace automatico.
-so that - obtener una carta
 
 /!\ Cuando se acabe una, se hace un commit /!\
 
+1. Quiero poder iniciar el juego
+2. Quiero poder ver mis cartas
+3. Quiero poder poner una carta
+4. Quiero poder ganar por puntos si la cuenta atras se acaba
+5. Quiero jugar con mas jugadores
+6. Quiero animaciones
+7. Quiero sonidos dinamicos
+8. Quiero poder decir "UNO"
+9. Quiero poder hacer apuestas
 ​
 ## Backlog
 
@@ -69,15 +63,19 @@ so that - obtener una carta
 
 ## Links
 
+codePen : https://codepen.io/antoine-rolland/pen/WNQjVgV
+
 ## Backlog
 
 ### Git
 
-Reposit :
+Reposit : https://github.com/a-rolland/ironhackuno
 
 // Deploy: 
 
 ### Slides
 
 ### Kanban
+
+https://trello.com/b/btdeycdF/one
 
