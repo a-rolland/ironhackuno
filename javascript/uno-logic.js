@@ -38,6 +38,7 @@ class Player {
       currentCard.cardType === 'draw-4-wild') {
         return true
       }
+    // return false
   }
   getPlayableCards(currentCard) {
     let possibilities = 0

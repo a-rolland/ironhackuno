@@ -99,6 +99,7 @@ const cards = [
     { name: 'green-skip', cardType: 'skip', value: 20, color: 'green' },
     { name: 'yellow-skip', cardType: 'skip', value: 20, color: 'yellow' },
     { name: 'yellow-skip', cardType: 'skip', value: 20, color: 'yellow' },
+    // Then we will add these ones. Remind adding a coma at the previous line
     { name: 'wild', cardType: 'wild', value: 50, color: 'multi' },
     { name: 'wild', cardType: 'wild', value: 50, color: 'multi' },
     { name: 'wild', cardType: 'wild', value: 50, color: 'multi' },
@@ -109,62 +110,72 @@ const cards = [
     { name: 'draw-4-wild', cardType: 'draw-4-wild', value: 50, color: 'multi' }
   ];
 
-let game = new UnoGame(cards)
-game.shuffleCards()
-
-let player1 = new Player()
-let player2 = new Player()
-game.dealCards(player1)
-game.dealCards(player2)
-
-console.log("Player 1 hand")
-console.log(player1.hand)
-
-let actualCard = game.cards.splice(game.cards.length-1,1)
-
-console.log("Current card")
-console.log(actualCard[0])
-
-playersOptions = player1.getPlayableCards(actualCard)
-playersOptions2 = player2.getPlayableCards(actualCard)
-
-console.log("Player 1 options")
-console.log(playersOptions)
-
-console.log("Player 2 options")
-console.log(playersOptions2)
-
-// player1.randomMove(actualCard,playersOptions,game.cards)
-
-// player1.randomMove(actualCard,game.cards)
-// console.log("Player 1 hand")
-// console.log(player1.hand)
-
-// player2.randomMove(actualCard,game.cards)
-// console.log("Player 2 hand")
-// console.log(player2.hand)
-
-// console.log("Current Card : ")
-// console.log(actualCard)
-
-while (player1.hand.length >0 || player2.hand.length >0) {
-    player1.randomMove(actualCard,game.cards)
+document.getElementById("start").onclick = function (event) {
+    let game = new UnoGame(cards)
+    game.shuffleCards()
+    console.log(game.cards)
+    
+    let player1 = new Player()
+    let player2 = new Player()
+    game.dealCards(player1)
+    game.dealCards(player2)
+    
     console.log("Player 1 hand")
     console.log(player1.hand)
+    
+    let actualCard = game.cards.splice(game.cards.length-1,1)
 
-    player2.randomMove(actualCard,game.cards)
-    console.log("Player 2 hand")
-    console.log(player2.hand)
-
-    console.log("Current Card : ")
-    console.log(actualCard)
+    let board = new UnoCanvas(game)
+    board.update()
+    
+    console.log("Current card")
+    console.log(actualCard[0])
+    
+    playersOptions = player1.getPlayableCards(actualCard)
+    playersOptions2 = player2.getPlayableCards(actualCard)
+    
+    console.log("Player 1 options")
+    console.log(playersOptions)
+    
+    console.log("Player 2 options")
+    console.log(playersOptions2)
+    
+    // player1.randomMove(actualCard,playersOptions,game.cards)
+    
+    // player1.randomMove(actualCard,game.cards)
+    // console.log("Player 1 hand")
+    // console.log(player1.hand)
+    
+    // player2.randomMove(actualCard,game.cards)
+    // console.log("Player 2 hand")
+    // console.log(player2.hand)
+    
+    // console.log("Current Card : ")
+    // console.log(actualCard)
+    
+    let i=0;
+    while (i <10) {
+    // while (player1.hand.length >0 || player2.hand.length >0) {
+        player1.randomMove(actualCard,game.cards)
+        console.log("Player 1 hand")
+        console.log(player1.hand)
+    
+        player2.randomMove(actualCard,game.cards)
+        console.log("Player 2 hand")
+        console.log(player2.hand)
+    
+        console.log("Current Card : ")
+        console.log(actualCard)
+        i++
+    }
+    
+    // if (player1.hand.length === 0) {
+    //     console.log("Player 1 won");
+    // } else {
+    //     console.log("player 2 won") 
+    // }
 }
 
-if (player1.hand.length === 0) {
-    console.log("Player 1 won");
-} else {
-    console.log("player 2 won") 
-}
 
 
 
