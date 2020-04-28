@@ -110,41 +110,83 @@ const cards = [
   ];
 
 let game = new UnoGame(cards)
-
 game.shuffleCards()
-let playerCards = game.cards.splice(game.cards.length-7, 7);
 
-//   playerCards.push(...game.cards.splice(game.cards.length-7,  7)); ---> PICK CARDS
+let player1 = new Player()
+let player2 = new Player()
+game.dealCards(player1)
+game.dealCards(player2)
 
-let currentCard = game.cards.splice(game.cards.length-1,1)
+console.log("Player 1 hand")
+console.log(player1.hand)
 
-console.log(currentCard[0])
+let actualCard = game.cards.splice(game.cards.length-1,1)
 
-let possibilities = 0
-let playersChoice = []
+console.log("Current card")
+console.log(actualCard[0])
 
-for (i=0;i<playerCards.length;i++) {
-    console.log(playerCards[i])
-    playerCards[i].cardType
-    if (playerCards[i].cardType === currentCard[0].cardType || 
-        playerCards[i].color === currentCard[0].color || 
-        playerCards[i].cardType === 'wild' ||
-        playerCards[i].cardType === 'draw-4-wild') {
-        possibilities ++
-        playersChoice.push(playerCards[i])
-    }
+playersOptions = player1.getPlayableCards(actualCard)
+playersOptions2 = player2.getPlayableCards(actualCard)
+
+console.log("Player 1 options")
+console.log(playersOptions)
+
+console.log("Player 2 options")
+console.log(playersOptions2)
+
+// player1.randomMove(actualCard,playersOptions,game.cards)
+
+// player1.randomMove(actualCard,game.cards)
+// console.log("Player 1 hand")
+// console.log(player1.hand)
+
+// player2.randomMove(actualCard,game.cards)
+// console.log("Player 2 hand")
+// console.log(player2.hand)
+
+// console.log("Current Card : ")
+// console.log(actualCard)
+
+while (player1.hand.length >0 || player2.hand.length >0) {
+    player1.randomMove(actualCard,game.cards)
+    console.log("Player 1 hand")
+    console.log(player1.hand)
+
+    player2.randomMove(actualCard,game.cards)
+    console.log("Player 2 hand")
+    console.log(player2.hand)
+
+    console.log("Current Card : ")
+    console.log(actualCard)
 }
 
-if (playersChoice.length > 0) {
-    currentCard = playersChoice[Math.floor(Math.random() * playersChoice.length)];
-    console.log(`Current card : `)
-    console.log(currentCard)
-    console.log('Players cards')
-    console.log(playerCards)
+if (player1.hand.length === 0) {
+    console.log("Player 1 won");
 } else {
-    playerCards.push(...game.cards.splice(game.cards.length-1,1))
-    console.log('Players cards')
-    console.log(playerCards)
+    console.log("player 2 won") 
 }
 
-console.log("Possibilities : " + possibilities)
+
+
+
+
+// Computer playing
+// if (playersChoice.length > 0) {
+//     currentCard = playersChoice[Math.floor(Math.random() * playersChoice.length)];
+//     console.log(`Current card : `)
+//     console.log(currentCard)
+//     console.log('Players cards')
+//     console.log(player1.hand)
+// } else {
+//     player1.hand.push(...game.cards.splice(game.cards.length-1,1))
+//     console.log('Players cards')
+//     console.log(player1.hand)
+// }
+
+
+// Backup codelines 
+// let playerCards = game.cards.splice(game.cards.length-7, 7); //Give player his first hand
+
+// player1.hand.push(...game.cards.splice(game.cards.length-7,  7)); ---> // Pick cards
+
+// console.log("Possibilities : " + possibilities)
