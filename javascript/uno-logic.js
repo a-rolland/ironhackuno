@@ -20,11 +20,23 @@ class UnoGame {
     dealCards(player) {
       player.hand = this.cards.splice(this.cards.length-7, 7);
     }
+    checkCurrentCardDeck(currentCardDeck) {
+      if (currentCardDeck.length >4) {
+        this.cards.unshift(...currentCardDeck.splice(1,currentCardDeck.length-1))
+        this.shuffleCards(this.cards)
+      }
+    }
+    checkFinished(player1,player2) {
+      if (player1.hand.length === 0 || player2.hand.length === 0) {
+        return true;
+      }
+      return false
+    }
 }
-
 class Player {
-  constructor(hand){
+  constructor(hand,playerNumber){
     this.hand = hand;
+    this.playerNumber = playerNumber;
   }
   pickCards(quantity,deck) {
     this.hand.push(...deck.splice(deck.length-quantity,  quantity));
@@ -38,7 +50,7 @@ class Player {
       currentCard.cardType === 'draw-4-wild') {
         return true
       }
-    // return false
+    return false
   }
   getPlayableCards(currentCard) {
     let possibilities = 0
@@ -53,21 +65,6 @@ class Player {
     }
     return playersChoice
   }
-  
-  // Function to be uncommented when player will be able to play, and not the computer
-  // getPlayableCards(currentCard) {
-  //   let possibilities = 0
-  //   let playersChoice = []
-
-  //   for (let i=0;i<this.hand.length;i++) {
-  //       // console.log(this.hand[i])
-  //       if (this.isPlayable(this.hand[i],currentCard[0])) {
-  //           possibilities ++
-  //           playersChoice.push(this.hand[i])
-  //       }
-  //   }
-  //   return playersChoice
-  // }
 
   randomMove(currentCard,deck) {
     let hasPossibility = this.getPlayableCards(currentCard)
@@ -76,7 +73,8 @@ class Player {
       while (found === 0) {
         let rand = Math.floor(Math.random() * this.hand.length)
         if (this.isPlayable(this.hand[rand],currentCard[0])) {
-          currentCard =  this.hand.splice(rand,1);
+          currentCard.unshift(...this.hand.splice(rand,1));
+          // currentCard.unshift =  this.hand.splice(rand,1);
           found = 1
         }
       }

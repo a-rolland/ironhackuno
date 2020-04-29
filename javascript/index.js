@@ -112,11 +112,16 @@ const cards = [
 
 document.getElementById("start").onclick = function (event) {
     let game = new UnoGame(cards)
+    let board = new UnoCanvas(game)
     game.shuffleCards()
     console.log(game.cards)
     
     let player1 = new Player()
+    player1.playerNumber = 1
+
     let player2 = new Player()
+    player2.playerNumber = 2
+
     game.dealCards(player1)
     game.dealCards(player2)
     
@@ -125,11 +130,10 @@ document.getElementById("start").onclick = function (event) {
     
     let actualCard = game.cards.splice(game.cards.length-1,1)
 
-    let board = new UnoCanvas(game)
-    board.update()
+    board.update(player1,player2,actualCard)
     
     console.log("Current card")
-    console.log(actualCard[0])
+    console.log(actualCard)
     
     playersOptions = player1.getPlayableCards(actualCard)
     playersOptions2 = player2.getPlayableCards(actualCard)
@@ -139,6 +143,31 @@ document.getElementById("start").onclick = function (event) {
     
     console.log("Player 2 options")
     console.log(playersOptions2)
+
+    document.getElementById("next-move").onclick = function (event) {
+        board.update(player1,player2,actualCard)
+        console.log("GAME CARDS")
+        console.log(game.cards)
+        console.log("CURRENT DECK")
+        console.log(actualCard)
+
+        player1.randomMove(actualCard,game.cards)
+        console.log("Player 1 hand")
+        console.log(player1.hand)
+        board.update(player1,player2,actualCard)
+    
+        player2.randomMove(actualCard,game.cards)
+        console.log("Player 2 hand")
+        console.log(player2.hand)
+        board.update(player1,player2,actualCard)
+    
+        console.log("Current Card : ")
+        console.log(actualCard)
+
+        game.checkCurrentCardDeck(actualCard)
+
+        console.log(game.checkFinished(player1,player2))
+    }
     
     // player1.randomMove(actualCard,playersOptions,game.cards)
     
@@ -152,30 +181,7 @@ document.getElementById("start").onclick = function (event) {
     
     // console.log("Current Card : ")
     // console.log(actualCard)
-    
-    let i=0;
-    while (i <10) {
-    // while (player1.hand.length >0 || player2.hand.length >0) {
-        player1.randomMove(actualCard,game.cards)
-        console.log("Player 1 hand")
-        console.log(player1.hand)
-    
-        player2.randomMove(actualCard,game.cards)
-        console.log("Player 2 hand")
-        console.log(player2.hand)
-    
-        console.log("Current Card : ")
-        console.log(actualCard)
-        i++
-    }
-    
-    // if (player1.hand.length === 0) {
-    //     console.log("Player 1 won");
-    // } else {
-    //     console.log("player 2 won") 
-    // }
 }
-
 
 
 
