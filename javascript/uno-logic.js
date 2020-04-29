@@ -2,6 +2,7 @@ class UnoGame {
     constructor(cards){
       this.cards = cards;
     }
+
     shuffleCards() {
       let m = this.cards.length;
       let t;
@@ -17,15 +18,22 @@ class UnoGame {
       }
       return undefined
     }
+
     dealCards(player) {
       player.hand = this.cards.splice(this.cards.length-7, 7);
     }
+
+    getCurrentCard() {
+      return this.cards.splice(this.cards.length-1,1)
+    }
+
     checkCurrentCardDeck(currentCardDeck) {
       if (currentCardDeck.length >4) {
         this.cards.unshift(...currentCardDeck.splice(1,currentCardDeck.length-1))
         this.shuffleCards(this.cards)
       }
     }
+
     checkFinished(player1,player2) {
       if (player1.hand.length === 0 || player2.hand.length === 0) {
         return true;
@@ -33,14 +41,17 @@ class UnoGame {
       return false
     }
 }
+
 class Player {
   constructor(hand,playerNumber){
     this.hand = hand;
     this.playerNumber = playerNumber;
   }
+
   pickCards(quantity,deck) {
     this.hand.push(...deck.splice(deck.length-quantity,  quantity));
   }
+
   isPlayable(card,currentCard) {
     if (card.cardType === currentCard.cardType || 
       card.color === currentCard.color || 
@@ -52,6 +63,7 @@ class Player {
       }
     return false
   }
+
   getPlayableCards(currentCard) {
     let possibilities = 0
     let playersChoice = []
@@ -80,6 +92,42 @@ class Player {
       }
     } else {
         this.pickCards(1,deck)
+    }
+  }
+
+  play(pos,currentCard) {
+    if (typeof pos === 'string') {
+      console.log("Not a card")
+    } else {
+      if (this.isPlayable(this.hand[pos],currentCard[0])) {
+        currentCard.unshift(...this.hand.splice(pos,1))
+      } else {
+        console.log("NOT POSSIBLE TO PLAY THIS CARD")
+      }
+    }
+  }
+
+  getCardInfo(position) {
+    let x = position[0];
+    let y = position[1];
+    if (x >=100 && x <=175 && y>= 400) {
+      return 0
+    } else if (x >=200 && x <=275 && y>= 400) {
+      return 1
+    } else if (x >=300 && x <=375 &&  y>= 400) {
+      return 2
+    } else if (x >=400 && x <=475 &&  y>= 400) {
+      return 3
+    } else if (x >=500 && x <=575 &&  y>= 400) {
+      return 4
+    } else if (x >=600 && x <=675 &&  y>= 400) {
+      return 5
+    } else if (x >=700 && x <=775 &&  y>= 400) {
+      return 6
+    } else if (x >=800 && x <=875 &&  y>= 400) {
+      return 7
+    } else {
+      return (`This is not a card`)
     }
   }
 

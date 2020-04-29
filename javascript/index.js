@@ -128,7 +128,7 @@ document.getElementById("start").onclick = function (event) {
     console.log("Player 1 hand")
     console.log(player1.hand)
     
-    let actualCard = game.cards.splice(game.cards.length-1,1)
+    let actualCard = game.getCurrentCard()
 
     board.update(player1,player2,actualCard)
     
@@ -144,62 +144,55 @@ document.getElementById("start").onclick = function (event) {
     console.log("Player 2 options")
     console.log(playersOptions2)
 
-    document.getElementById("next-move").onclick = function (event) {
-        board.update(player1,player2,actualCard)
-        console.log("GAME CARDS")
-        console.log(game.cards)
-        console.log("CURRENT DECK")
+    // document.getElementById("next-move").onclick = function (event) {
+    //     board.update(player1,player2,actualCard)
+    //     console.log("GAME CARDS")
+    //     console.log(game.cards)
+    //     console.log("CURRENT DECK")
+    //     console.log(actualCard)
+
+    //     player1.randomMove(actualCard,game.cards)
+    //     console.log("Player 1 hand")
+    //     console.log(player1.hand)
+    //     board.update(player1,player2,actualCard)
+    
+    //     player2.randomMove(actualCard,game.cards)
+    //     console.log("Player 2 hand")
+    //     console.log(player2.hand)
+    //     board.update(player1,player2,actualCard)
+    
+    //     console.log("Current Card : ")
+    //     console.log(actualCard)
+
+    //     game.checkCurrentCardDeck(actualCard)
+
+    //     console.log(game.checkFinished(player1,player2))
+    // }
+
+    // function getCursorPosition(canvas, event) {
+    //     const rect = canvas.getBoundingClientRect()
+    //     const x = event.clientX - rect.left
+    //     const y = event.clientY - rect.top
+    //     // console.log("x: " + x + " y: " + y)
+    //     return [x,y]
+    // }
+    
+    document.getElementById('uno').addEventListener('click', function(event) {
+        let position = board.getCursorPosition(event)
+        let cardToBePlayed = player1.getCardInfo(position)
+        console.log(cardToBePlayed)
+        
+        // player1 play
+        console.log(actualCard)
+        player1.play(cardToBePlayed,actualCard)
         console.log(actualCard)
 
-        player1.randomMove(actualCard,game.cards)
-        console.log("Player 1 hand")
         console.log(player1.hand)
-        board.update(player1,player2,actualCard)
-    
-        player2.randomMove(actualCard,game.cards)
-        console.log("Player 2 hand")
-        console.log(player2.hand)
-        board.update(player1,player2,actualCard)
-    
-        console.log("Current Card : ")
-        console.log(actualCard)
-
-        game.checkCurrentCardDeck(actualCard)
-
-        console.log(game.checkFinished(player1,player2))
-    }
-    
-    // player1.randomMove(actualCard,playersOptions,game.cards)
-    
-    // player1.randomMove(actualCard,game.cards)
-    // console.log("Player 1 hand")
-    // console.log(player1.hand)
-    
-    // player2.randomMove(actualCard,game.cards)
-    // console.log("Player 2 hand")
-    // console.log(player2.hand)
-    
-    // console.log("Current Card : ")
-    // console.log(actualCard)
+        
+        
+        // player2 random move
+    })
 }
-
-
-
-
-
-// Computer playing
-// if (playersChoice.length > 0) {
-//     currentCard = playersChoice[Math.floor(Math.random() * playersChoice.length)];
-//     console.log(`Current card : `)
-//     console.log(currentCard)
-//     console.log('Players cards')
-//     console.log(player1.hand)
-// } else {
-//     player1.hand.push(...game.cards.splice(game.cards.length-1,1))
-//     console.log('Players cards')
-//     console.log(player1.hand)
-// }
-
 
 // Backup codelines 
 // let playerCards = game.cards.splice(game.cards.length-7, 7); //Give player his first hand
