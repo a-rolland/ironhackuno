@@ -46,15 +46,19 @@ class UnoCanvas {
             // image.src = `images/${cardName}.png`;
             // this.ctx.drawImage(image, initX, Y, 75,100);
             let cardColor = player.hand[i].color
-            let cardType = player.hand[i].cardType
+            let cardLogo = player.hand[i].cardLogo
             if (cardColor === 'multi') {
                 cardColor = "grey"
             }
-            this.ctx.fillStyle = `${cardColor}` // OJO con carta WILD & WILD +4
+            if (player.playerNumber === 1) {
+                this.ctx.fillStyle = `${cardColor}` // OJO con carta WILD & WILD +4
+            }
             this.ctx.fillRect(initX, Y, 75,100);
 
             this.ctx.fillStyle = "black"
-            this.ctx.fillText(`${cardType}`, initX,Y);
+            if (player.playerNumber === 1) {
+                this.ctx.fillText(`${cardLogo}`, initX,Y);
+            } 
             initX += 100;
             if (i === 7 && player.playerNumber === 1) {
                 initX = 150;
@@ -85,7 +89,7 @@ class UnoCanvas {
         // image.src = `images/${currentCardName}.png`; 
         // this.ctx.drawImage(image, 400, 200, 75,100);
         let cardColor = currentCard[0].color
-        let cardType = currentCard[0].cardType
+        let cardLogo = currentCard[0].cardLogo
         if (cardColor === 'multi') {
             cardColor = "grey"
         }
@@ -93,7 +97,7 @@ class UnoCanvas {
         this.ctx.fillRect(400, 200, 75,100);
 
         this.ctx.fillStyle = "black"
-        this.ctx.fillText(`${cardType}`, 400,200);
+        this.ctx.fillText(`${cardLogo}`, 400,200);
         this.ctx.restore()
     }
 
@@ -103,5 +107,14 @@ class UnoCanvas {
         const y = event.clientY - rect.top
         // console.log("x: " + x + " y: " + y)
         return [x,y]
+    }
+
+    weHaveAWinner(player) {
+        this.clearBoard()
+        this.ctx.save()
+        this.ctx.fillStyle = "black"
+        this.ctx.font = "40px Arial";
+        this.ctx.fillText(`Player ${player.playerNumber} has won !!!`, this.canvas.width/2,this.canvas.height/2);
+        this.ctx.restore()
     }
 }

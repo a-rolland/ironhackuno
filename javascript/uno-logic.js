@@ -36,16 +36,17 @@ class UnoGame {
 
     checkFinished(player1,player2) {
       if (player1.hand.length === 0 || player2.hand.length === 0) {
-        return true;
+        return player1.hand.length === 0 ? player1 : player2
       }
       return false
     }
 }
 
 class Player {
-  constructor(hand,playerNumber){
+  constructor(hand,playerNumber,hasPlayed){
     this.hand = hand;
     this.playerNumber = playerNumber;
+    this.hasPlayed = false
   }
 
   pickCards(quantity,deck) {
@@ -99,6 +100,7 @@ class Player {
     if (typeof pos === 'string') {
       if (pos === 'deck') {
         console.log('Deck, you picked one card !')
+        this.hasPlayed = true;
         this.pickCards(1,deck)
       } else if (pos === 'current') {
         console.log("CURRENT CARD :")
@@ -107,6 +109,7 @@ class Player {
     } else {
       if (this.isPlayable(this.hand[pos],currentCard[0])) {
         currentCard.unshift(...this.hand.splice(pos,1))
+        this.hasPlayed = true;
       } else {
         console.log("NOT POSSIBLE TO PLAY THIS CARD")
       }
