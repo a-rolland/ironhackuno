@@ -139,7 +139,7 @@ document.getElementById("start").onclick = function (event) {
     console.log(actualCard[0])
 
     // After 1 minute, if players still have cards, the winner is the one with the fewest points
-    let winner = game.checkFinished(player1,player2)
+    let winner = false;
     // Initialize the timer at 59 sec.
     let i = 59;
     function onTimer() {
@@ -159,6 +159,7 @@ document.getElementById("start").onclick = function (event) {
     document.getElementById('uno').addEventListener('click', function(event) {
 
         if (!game.checkFinished(player1,player2) && !winner) {
+            if (!player2.isPlaying) {
             // Check position of the click
             let position = board.getCursorPosition(event)
 
@@ -173,7 +174,9 @@ document.getElementById("start").onclick = function (event) {
             
             // Play the picked card
             player1.play(cardToBePlayed,actualCard,game.cards)
+            player2.isPlaying = true
             board.update(player1,player2,actualCard)
+            }
             
             console.log("PLAYER 2 HAND")
             console.log(player2.hand)
@@ -182,9 +185,17 @@ document.getElementById("start").onclick = function (event) {
             if (player1.hasPlayed === true) {
                 player2.randomMove(actualCard,game.cards)
             }
-            board.update(player1,player2,actualCard)
+            setTimeout(function(){
+                board.update(player1,player2,actualCard)
+                player2.isPlaying = false;
+            },1000)
+            // board.update(player1,player2,actualCard)
             
             player1.hasPlayed = false;
+
+            // If current card deck is getting too big, just keep the first card, the rest of the cards will be 
+            // added to the deck, and the deck will be shuffled
+            game.checkCurrentCardDeck(actualCard)
             
             // Each round : check if game is finished, and if so, who the winner is
             // let winner = game.checkFinished(player1,player2)
@@ -192,10 +203,6 @@ document.getElementById("start").onclick = function (event) {
             if (winner) {
                 board.weHaveAWinner(winner,player1,player2)
             }
-            
-            // If current card deck is getting too big, just keep the first card, the rest of the cards will be 
-            // added to the deck, and the deck will be shuffled
-            game.checkCurrentCardDeck(actualCard)
         }
     })
 }

@@ -46,7 +46,8 @@ class Player {
   constructor(hand,playerNumber,hasPlayed){
     this.hand = hand;
     this.playerNumber = playerNumber;
-    this.hasPlayed = false
+    this.hasPlayed = false;
+    this.isPlaying = false;
   }
 
   // Pick a card from the deck
