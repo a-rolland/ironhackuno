@@ -4,6 +4,7 @@ class UnoCanvas {
         this.canvas = document.getElementById("uno");
         this.ctx = this.canvas.getContext('2d')
         this.ctx.fillStyle = "white";
+        this.ctx.font = "15px Arial";
         this.ctx.fillRect(0,0,900,500)
     }
 
@@ -44,8 +45,33 @@ class UnoCanvas {
             // let image = new Image()
             // image.src = `images/${cardName}.png`;
             // this.ctx.drawImage(image, initX, Y, 75,100);
+            let cardColor = player.hand[i].color
+            let cardType = player.hand[i].cardType
+            if (cardColor === 'multi') {
+                cardColor = "grey"
+            }
+            this.ctx.fillStyle = `${cardColor}` // OJO con carta WILD & WILD +4
             this.ctx.fillRect(initX, Y, 75,100);
+
+            this.ctx.fillStyle = "black"
+            this.ctx.fillText(`${cardType}`, initX,Y);
             initX += 100;
+            if (i === 7 && player.playerNumber === 1) {
+                initX = 150;
+                Y = 350;
+            }
+            if (i === 14 && player.playerNumber === 1) {
+                initX = 200;
+                Y = 325;
+            }
+            if (i === 7 && player.playerNumber === 2) {
+                initX = 150;
+                Y = 50;
+            }
+            if (i === 14 && player.playerNumber === 2) {
+                initX = 200;
+                Y = 125;
+            }
         }
         this.ctx.restore()
     }
@@ -58,7 +84,16 @@ class UnoCanvas {
         // let image = new Image()
         // image.src = `images/${currentCardName}.png`; 
         // this.ctx.drawImage(image, 400, 200, 75,100);
+        let cardColor = currentCard[0].color
+        let cardType = currentCard[0].cardType
+        if (cardColor === 'multi') {
+            cardColor = "grey"
+        }
+        this.ctx.fillStyle = `${cardColor}` // OJO con carta WILD & WILD +4
         this.ctx.fillRect(400, 200, 75,100);
+
+        this.ctx.fillStyle = "black"
+        this.ctx.fillText(`${cardType}`, 400,200);
         this.ctx.restore()
     }
 

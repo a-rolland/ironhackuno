@@ -179,13 +179,12 @@ document.getElementById("start").onclick = function (event) {
     
     document.getElementById('uno').addEventListener('click', function(event) {
         let position = board.getCursorPosition(event)
-        let cardToBePlayed = player1.getCardInfo(position)
+        let cardToBePlayed = player1.getCardPosition(position)
         console.log(cardToBePlayed)
         
         // player1 play
-        console.log(actualCard)
-        player1.play(cardToBePlayed,actualCard)
-        console.log(actualCard)
+        player1.play(cardToBePlayed,actualCard,game.cards)
+        board.update(player1,player2,actualCard)
 
         console.log(player1.hand)
         
