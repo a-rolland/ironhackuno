@@ -115,12 +115,20 @@ class UnoCanvas {
         return [x,y]
     }
 
-    weHaveAWinner(player) {
+    weHaveAWinner(player,player1,player2) {
         this.clearBoard()
         this.ctx.save()
         this.ctx.fillStyle = "black"
         this.ctx.font = "40px Arial";
-        this.ctx.fillText(`Player ${player.playerNumber} has won !!!`, this.canvas.width/2,this.canvas.height/2);
+        if (player1.hand.length > 0 && player2.hand.length > 0) {
+            const totalPlayer1 = player1.hand.reduce((total, current) => total + current.value,0); 
+            const totalPlayer2 = player2.hand.reduce((total, current) => total + current.value,0); 
+            totalPlayer1 > totalPlayer2 ? this.ctx.fillText(`Timeout ! Player 2 won !!! With ${totalPlayer2} points`, 75, this.canvas.height/2) :
+                                                 this.ctx.fillText(`Timeout ! Player 1 won !!! With ${totalPlayer1} points`, 75, this.canvas.height/2)
+            
+        } else {
+            this.ctx.fillText(`Player ${player.playerNumber} has won !!!`, this.canvas.width/3,this.canvas.height/2);
+        }
         this.ctx.restore()
     }
 }

@@ -111,6 +111,7 @@ const cards = [
   ];
 
 document.getElementById("start").onclick = function (event) {
+
     let game = new UnoGame(cards)
     let board = new UnoCanvas(game)
     game.shuffleCards()
@@ -136,14 +137,28 @@ document.getElementById("start").onclick = function (event) {
     
     console.log("First Current card")
     console.log(actualCard[0])
-    
-    // These two lines may be deleted
-    playersOptions = player1.getPlayableCards(actualCard)
-    playersOptions2 = player2.getPlayableCards(actualCard)
-    
+
+    // After 1 minute, if players still have cards, the winner is the one with the fewest points
+    let winner = game.checkFinished(player1,player2)
+    // Initialize the timer at 59 sec.
+    let i = 59;
+    function onTimer() {
+        document.getElementById('timer').innerHTML = `Time left : ${i}`;
+        i--;
+        if (i < 0) {
+            board.weHaveAWinner(winner,player1,player2)
+            winner = true;
+        }
+        else {
+            setTimeout(onTimer, 1000);
+        }
+    }
+    setTimeout(onTimer,1000);
+ 
     // Action when player clicks on canvas and only if game is not finished
     document.getElementById('uno').addEventListener('click', function(event) {
-        if (!game.checkFinished(player1,player2)) {
+
+        if (!game.checkFinished(player1,player2) && !winner) {
             // Check position of the click
             let position = board.getCursorPosition(event)
 
@@ -172,10 +187,10 @@ document.getElementById("start").onclick = function (event) {
             player1.hasPlayed = false;
             
             // Each round : check if game is finished, and if so, who the winner is
-            let winner = game.checkFinished(player1,player2)
+            // let winner = game.checkFinished(player1,player2)
+            winner = game.checkFinished(player1,player2)
             if (winner) {
-                // console.log(`Player ${winner.playerNumber} has won !!!`)
-                board.weHaveAWinner(winner)
+                board.weHaveAWinner(winner,player1,player2)
             }
             
             // If current card deck is getting too big, just keep the first card, the rest of the cards will be 
@@ -191,3 +206,8 @@ document.getElementById("start").onclick = function (event) {
 // player1.hand.push(...game.cards.splice(game.cards.length-7,  7)); ---> // Pick cards
 
 // console.log("Possibilities : " + possibilities)
+
+// setTimeout(function() {
+    //                 board.weHaveAWinner(winner,player1,player2)
+    //                 winner = true;
+    //             },5000)
