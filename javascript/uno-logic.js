@@ -28,7 +28,7 @@ class UnoGame {
     }
 
     checkCurrentCardDeck(currentCardDeck) {
-      if (currentCardDeck.length >45) {
+      if (currentCardDeck.length >30) {
         this.cards.unshift(...currentCardDeck.splice(1,currentCardDeck.length-1))
         this.shuffleCards(this.cards)
       }
@@ -49,10 +49,12 @@ class Player {
     this.hasPlayed = false
   }
 
+  // Pick a card from the deck
   pickCards(quantity,deck) {
     this.hand.push(...deck.splice(deck.length-quantity,  quantity));
   }
 
+  // Compare a card from the player hand and check if it can be played
   isPlayable(card,currentCard) {
     if (card.cardType === currentCard.cardType || 
       card.color === currentCard.color || 
@@ -65,30 +67,28 @@ class Player {
     return false
   }
 
+  // Check if player 2 (computer) has an option to play
   getPlayableCards(currentCard) {
-    let possibilities = 0
-    let playersChoice = []
-
     for (let i=0;i<this.hand.length;i++) {
-        // console.log(this.hand[i])
         if (this.isPlayable(this.hand[i],currentCard[0])) {
-            possibilities ++
-            playersChoice.push(this.hand[i])
+            return true
         }
     }
-    return playersChoice
+    return false
   }
 
+  // Make the player 2 (computer) play if he can
+  // He will either put a card, or pick one if he doesnt have any option
   randomMove(currentCard,deck) {
-    let hasPossibility = this.getPlayableCards(currentCard)
-    if (hasPossibility.length > 0) {
-      let found = 0;
-      while (found === 0) {
+    let canPlay = this.getPlayableCards(currentCard)
+    console.log(canPlay)
+    if (canPlay) {
+      let found = false;
+      while (!found) {
         let rand = Math.floor(Math.random() * this.hand.length)
         if (this.isPlayable(this.hand[rand],currentCard[0])) {
           currentCard.unshift(...this.hand.splice(rand,1));
-          // currentCard.unshift =  this.hand.splice(rand,1);
-          found = 1
+          found = true
         }
       }
     } else {
@@ -96,6 +96,9 @@ class Player {
     }
   }
 
+  // If player clicks on a playable card, this card will replace the current middle card
+  // If he clicks on the deck, he will pick a card from it
+  // Else : nothing will happen
   play(pos,currentCard,deck) {
     if (typeof pos === 'string') {
       if (pos === 'deck') {
@@ -148,41 +151,18 @@ class Player {
     x >=25 && x <=100 &&  y>= 200 && y<=300 ? 'deck' :
     x >=400 && x <=475 &&  y>= 100 && y<=300 ? 'current' : 'This is not a card'
   }
-
-  // randomMove(currentCard,options,deck) {
-  //   if (options.length > 0) {
-  //     currentCard = options[Math.floor(Math.random() * options.length)];
-  //     console.log("player1 could play")
-  //   } else {
-  //       this.pickCards(1,deck)
-  //       console.log('Players cards')
-  //       console.log(player1.hand)
-  //       console.log("player1 could NOT play")
-  //   }
-  // }
-
-  // randomMove(currentCard,options,deck) {
-  //   let copyHand = [...this.hand]
-  //   let options = this.getPlayableCards(currentCard)
-  //   if (options.length > 0) {
-  //     let found = 0;
-  //     while (found === 0) {
-  //       let rand = Math.floor(Math.random() * this.hand.length)
-  //       if (this.isPlayable(this.hand[rand],currentCard[0])) {
-  //         currentCard =  this.hand.splice(rand,1);
-  //         found = 1
-  //       }
-  //     }
-  //     console.log("Current Card ==>")
-  //     console.log(currentCard)
-  //     console.log("Before Hand")
-  //     console.log(copyHand)
-  //     console.log("player1 could play")
-  //   } else {
-  //       this.pickCards(1,deck)
-  //       console.log('Players cards')
-  //       console.log(player1.hand)
-  //       console.log("player1 could NOT play")
-  //   }
-  // }
 }
+
+// getPlayableCards(currentCard) {
+//   let possibilities = 0
+//   let playersChoice = []
+
+//   for (let i=0;i<this.hand.length;i++) {
+//       // console.log(this.hand[i])
+//       if (this.isPlayable(this.hand[i],currentCard[0])) {
+//           possibilities ++
+//           playersChoice.push(this.hand[i])
+//       }
+//   }
+//   return playersChoice
+// }

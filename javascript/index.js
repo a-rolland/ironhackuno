@@ -122,12 +122,14 @@ document.getElementById("start").onclick = function (event) {
     let player2 = new Player()
     player2.playerNumber = 2
 
+    // Give each player 7 cards
     game.dealCards(player1)
     game.dealCards(player2)
     
     console.log("Player 1 starting hand")
     console.log(player1.hand)
     
+    // Set a first card in the middle to start the game
     let actualCard = game.getCurrentCard()
 
     board.update(player1,player2,actualCard)
@@ -135,12 +137,17 @@ document.getElementById("start").onclick = function (event) {
     console.log("First Current card")
     console.log(actualCard[0])
     
+    // These two lines may be deleted
     playersOptions = player1.getPlayableCards(actualCard)
     playersOptions2 = player2.getPlayableCards(actualCard)
     
+    // Action when player clicks on canvas and only if game is not finished
     document.getElementById('uno').addEventListener('click', function(event) {
         if (!game.checkFinished(player1,player2)) {
+            // Check position of the click
             let position = board.getCursorPosition(event)
+
+            // Pick the card found on this position
             let cardToBePlayed = player1.getCardPosition(position)
 
             console.log("CURRENT CARD")
@@ -149,12 +156,14 @@ document.getElementById("start").onclick = function (event) {
             console.log("PLAYER 1 HAND")
             console.log(player1.hand)
             
+            // Play the picked card
             player1.play(cardToBePlayed,actualCard,game.cards)
             board.update(player1,player2,actualCard)
             
             console.log("PLAYER 2 HAND")
             console.log(player2.hand)
 
+            // Player 2 will play randomly, only if player one either played a card, or picked one from the deck
             if (player1.hasPlayed === true) {
                 player2.randomMove(actualCard,game.cards)
             }
@@ -162,11 +171,16 @@ document.getElementById("start").onclick = function (event) {
             
             player1.hasPlayed = false;
             
+            // Each round : check if game is finished, and if so, who the winner is
             let winner = game.checkFinished(player1,player2)
             if (winner) {
                 // console.log(`Player ${winner.playerNumber} has won !!!`)
                 board.weHaveAWinner(winner)
             }
+            
+            // If current card deck is getting too big, just keep the first card, the rest of the cards will be 
+            // added to the deck, and the deck will be shuffled
+            game.checkCurrentCardDeck(actualCard)
         }
     })
 }

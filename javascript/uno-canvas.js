@@ -8,6 +8,9 @@ class UnoCanvas {
         this.ctx.fillRect(0,0,900,500)
     }
 
+    // Update when : the game starts
+    // when player 1 plays
+    // when player 2 plays
     update(firstPlayer,secondPlayer,currentCard) {
         this.clearBoard()
         this.ctx.save()
@@ -27,12 +30,15 @@ class UnoCanvas {
     mostrarDeck() {
         this.ctx.save()
         // let image = new Image()
-        // image.src = `images/back.png`; 
+        // image.src = `images/back-reduce.png`; 
         // this.ctx.drawImage(image, 25, 200, 75,100);
         this.ctx.fillRect(25, 200, 75,100)
         this.ctx.restore()
     }
 
+    // Show player hand
+    // Only player 1 hand can be seen
+    // The rest is faced down
     mostrarCartasPlayer(player) {
         let initX = 100
         let Y = 400
