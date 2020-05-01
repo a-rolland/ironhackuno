@@ -83,14 +83,14 @@ const cards = [
     { name: 'green-draw-2', cardLogo: '+2', cardType: 'draw-2', value: 20, color: 'green' },
     { name: 'yellow-draw-2', cardLogo: '+2', cardType: 'draw-2', value: 20, color: 'yellow' },
     { name: 'yellow-draw-2', cardLogo: '+2', cardType: 'draw-2', value: 20, color: 'yellow' },
-    { name: 'red-reverse', cardLogo: '<-->', cardType: 'reverse', value: 20, color: 'red' },
-    { name: 'red-reverse', cardLogo: '<-->', cardType: 'reverse', value: 20, color: 'red' },
-    { name: 'blue-reverse', cardLogo: '<-->', cardType: 'reverse', value: 20, color: 'blue' },
-    { name: 'blue-reverse', cardLogo: '<-->', cardType: 'reverse', value: 20, color: 'blue' },
-    { name: 'green-reverse', cardLogo: '<-->', cardType: 'reverse', value: 20, color: 'green' },
-    { name: 'green-reverse', cardLogo: '<-->', cardType: 'reverse', value: 20, color: 'green' },
-    { name: 'yellow-reverse', cardLogo: '<-->', cardType: 'reverse', value: 20, color: 'yellow' },
-    { name: 'yellow-reverse', cardLogo: '<-->', cardType: 'reverse', value: 20, color: 'yellow' },
+    { name: 'red-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'red' },
+    { name: 'red-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'red' },
+    { name: 'blue-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'blue' },
+    { name: 'blue-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'blue' },
+    { name: 'green-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'green' },
+    { name: 'green-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'green' },
+    { name: 'yellow-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'yellow' },
+    { name: 'yellow-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'yellow' },
     { name: 'red-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'red' },
     { name: 'red-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'red' },
     { name: 'blue-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'blue' },
@@ -172,6 +172,16 @@ document.getElementById("start").onclick = function (event) {
             console.log("PLAYER 1 HAND")
             console.log(player1.hand)
             
+            // Check if player2 is skipped : we check first if the clicked element is a card from the player 1
+            // Then we check if this card is of type "skipped" or "reverse"
+            // If it is, player2 is skipped for 1 round. At the end of the round this status is set back to false
+            if (player1.hand[cardToBePlayed]) {
+                if (player1.hand[cardToBePlayed].cardType === 'skip' || 
+                    player1.hand[cardToBePlayed].cardType === 'reverse') {
+                    player2.isSkipped = true;
+                }
+            }
+            
             // Play the picked card
             player1.play(cardToBePlayed,actualCard,game.cards)
             player2.isPlaying = true
@@ -182,13 +192,15 @@ document.getElementById("start").onclick = function (event) {
             console.log(player2.hand)
 
             // Player 2 will play randomly, only if player one either played a card, or picked one from the deck
-            if (player1.hasPlayed === true) {
+            if (player1.hasPlayed === true && !player2.isSkipped) {
                 player2.randomMove(actualCard,game.cards)
             }
             setTimeout(function(){
+                if (!winner) {
                 board.update(player1,player2,actualCard)
+                }
                 player2.isPlaying = false;
-            },1000)
+            },800)
             // board.update(player1,player2,actualCard)
             
             player1.hasPlayed = false;
@@ -196,6 +208,7 @@ document.getElementById("start").onclick = function (event) {
             // If current card deck is getting too big, just keep the first card, the rest of the cards will be 
             // added to the deck, and the deck will be shuffled
             game.checkCurrentCardDeck(actualCard)
+            player2.isSkipped = false;
             
             // Each round : check if game is finished, and if so, who the winner is
             // let winner = game.checkFinished(player1,player2)

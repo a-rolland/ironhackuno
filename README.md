@@ -12,20 +12,20 @@ Comodines :
     +2 : el jugador siguiente tiene que robar 2 cartas.
     +4 : el jugador siguiente tiene que robar 4 cartas. El jugador que pone esta carta tambien elige el nuveo color actual.
     Skip : el jugador siguiente no puede jugar.
-    Reverse : se inverte el sentido en cual jugamos ( solo si hay mas de 2 jugadores ).
+    Reverse : se inverte el sentido en cual jugamos ( solo si hay mas de 2 jugadores ). Con 2 jugadores, esta carta tiene el mismo efecto que "Skip".
     Wild : el jugador elige el color actual.
     Wild +4 : el jugador elige el color actual. Ademas, el jugador siguiente tiene que robar 4 cartas. 
-    (OJO! A un nivel mas avanzado de desarrollo del juego, solo se puede poner esta carta Wild +4 si el jugador no tiene el color o el numero requerido para poder jugar. Si tiene el color o numero, es decision suya de jugar esta carta, pero el jugador siguiente puede apostar que miente. Si es cierto, el jugador tendra que robar 6 cartas !)
+    (OJO! A un nivel mas avanzado de desarrollo del juego, solo se puede poner esta carta Wild +4 si el jugador no tiene el color o el numero requerido para poder jugar. Si tiene el color o numero, es decision suya de jugar esta carta, pero el jugador siguiente puede apostar que miente. Si es cierto, el jugador tendra que robar 6 cartas !).
 
 Valor :
 Cada carta tiene un valor :
 Las cartas de numeros tienen como valor su propio numero.
 Los comodines tienen valores mas elevados :
-    - Reverse : 20
-    - Skip : 20
-    - +2 : 20
-    - Wild : 50
-    - Wild +4: 50
+    * Reverse : 20
+    * Skip : 20
+    * +2 : 20
+    * Wild : 50
+    * Wild +4: 50
 
 El juego se acaba cuando uno de los jugadores ya no tiene cartas : ha ganado.
 O : si la cuenta atras se acabo. Entonces gana el que menos puntos tiene ( cartas de valor mas baja ).

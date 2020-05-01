@@ -48,6 +48,7 @@ class Player {
     this.playerNumber = playerNumber;
     this.hasPlayed = false;
     this.isPlaying = false;
+    this.isSkipped = false;
   }
 
   // Pick a card from the deck
