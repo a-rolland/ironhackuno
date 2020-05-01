@@ -196,7 +196,7 @@ document.getElementById("start").onclick = function (event) {
                 player2.randomMove(actualCard,game.cards)
             }
             setTimeout(function(){
-                if (!winner) {
+                if (!winner) { // Even if game is ended, we have to set this condition as this is a Timeout function, otherwise the board will be updated with cards
                 board.update(player1,player2,actualCard)
                 }
                 player2.isPlaying = false;
