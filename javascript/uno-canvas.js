@@ -1,6 +1,5 @@
 class UnoCanvas {
-    constructor(game){
-        this.game = game;
+    constructor(){
         this.canvas = document.getElementById("uno");
         this.ctx = this.canvas.getContext('2d')
         this.ctx.fillStyle = "white";

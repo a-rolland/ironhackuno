@@ -25,7 +25,7 @@ Los comodines tienen valores mas elevados :
 - Skip : 20
 - +2 : 20
 - Wild : 50
-- Wild +4: 50
+- Wild +4 : 50
 
 El juego se acaba cuando uno de los jugadores ya no tiene cartas : ha ganado.
 O : si la cuenta atras se acabo. Entonces gana el que menos puntos tiene ( cartas de valor mas baja ).

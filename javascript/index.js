@@ -91,6 +91,50 @@ const cards = [
     { name: 'green-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'green' },
     { name: 'yellow-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'yellow' },
     { name: 'yellow-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'yellow' },
+
+    //TEST BLOCK
+    { name: 'red-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'red' },
+    { name: 'red-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'red' },
+    { name: 'blue-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'blue' },
+    { name: 'blue-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'blue' },
+    { name: 'green-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'green' },
+    { name: 'green-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'green' },
+    { name: 'yellow-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'yellow' },
+    { name: 'yellow-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'yellow' },
+    { name: 'red-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'red' },
+    { name: 'red-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'red' },
+    { name: 'blue-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'blue' },
+    { name: 'blue-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'blue' },
+    { name: 'green-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'green' },
+    { name: 'green-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'green' },
+    { name: 'yellow-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'yellow' },
+    { name: 'yellow-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'yellow' },
+    { name: 'red-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'red' },
+    { name: 'red-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'red' },
+    { name: 'blue-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'blue' },
+    { name: 'blue-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'blue' },
+    { name: 'green-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'green' },
+    { name: 'green-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'green' },
+    { name: 'yellow-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'yellow' },
+    { name: 'yellow-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'yellow' },
+    { name: 'red-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'red' },
+    { name: 'red-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'red' },
+    { name: 'blue-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'blue' },
+    { name: 'blue-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'blue' },
+    { name: 'green-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'green' },
+    { name: 'green-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'green' },
+    { name: 'yellow-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'yellow' },
+    { name: 'yellow-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'yellow' },
+    { name: 'red-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'red' },
+    { name: 'red-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'red' },
+    { name: 'blue-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'blue' },
+    { name: 'blue-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'blue' },
+    { name: 'green-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'green' },
+    { name: 'green-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'green' },
+    { name: 'yellow-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'yellow' },
+    { name: 'yellow-reverse', cardLogo: 'Reverse', cardType: 'reverse', value: 20, color: 'yellow' },
+    //END TEST BLOCK
+
     { name: 'red-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'red' },
     { name: 'red-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'red' },
     { name: 'blue-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'blue' },
@@ -99,7 +143,50 @@ const cards = [
     { name: 'green-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'green' },
     { name: 'yellow-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'yellow' },
     { name: 'yellow-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'yellow' },
-    // Then we will add these ones. Remind adding a coma at the previous line
+
+    // TEST BLOCK
+    { name: 'red-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'red' },
+    { name: 'red-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'red' },
+    { name: 'blue-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'blue' },
+    { name: 'blue-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'blue' },
+    { name: 'green-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'green' },
+    { name: 'green-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'green' },
+    { name: 'yellow-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'yellow' },
+    { name: 'yellow-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'yellow' },
+    { name: 'red-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'red' },
+    { name: 'red-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'red' },
+    { name: 'blue-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'blue' },
+    { name: 'blue-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'blue' },
+    { name: 'green-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'green' },
+    { name: 'green-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'green' },
+    { name: 'yellow-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'yellow' },
+    { name: 'yellow-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'yellow' },
+    { name: 'red-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'red' },
+    { name: 'red-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'red' },
+    { name: 'blue-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'blue' },
+    { name: 'blue-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'blue' },
+    { name: 'green-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'green' },
+    { name: 'green-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'green' },
+    { name: 'yellow-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'yellow' },
+    { name: 'yellow-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'yellow' },
+    { name: 'red-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'red' },
+    { name: 'red-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'red' },
+    { name: 'blue-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'blue' },
+    { name: 'blue-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'blue' },
+    { name: 'green-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'green' },
+    { name: 'green-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'green' },
+    { name: 'yellow-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'yellow' },
+    { name: 'yellow-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'yellow' },
+    { name: 'red-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'red' },
+    { name: 'red-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'red' },
+    { name: 'blue-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'blue' },
+    { name: 'blue-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'blue' },
+    { name: 'green-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'green' },
+    { name: 'green-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'green' },
+    { name: 'yellow-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'yellow' },
+    { name: 'yellow-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'yellow' },
+    // END TEST BLOCK
+
     { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
     { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
     { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
@@ -112,54 +199,106 @@ const cards = [
 
 document.getElementById("start").onclick = function (event) {
 
-    let game = new UnoGame(cards)
-    let board = new UnoCanvas(game)
-    game.shuffleCards()
-    console.log(game.cards)
-    
-    let player1 = new Player()
-    player1.playerNumber = 1
+    let player1 = new Player(1)
+    // player1.playerNumber = 1
 
-    let player2 = new Player()
-    player2.playerNumber = 2
+    let player2 = new Player(2)
+    // player2.playerNumber = 2
+
+    let board = new UnoCanvas()
+    let game = new UnoGame(cards,board,player1,player2)
+    game.gameExecuting = true;
+    game.shuffleCards()
+    // console.log(game.cards)
 
     // Give each player 7 cards
     game.dealCards(player1)
     game.dealCards(player2)
     
-    console.log("Player 1 starting hand")
-    console.log(player1.hand)
+    // console.log("Player 1 starting hand")
+    // console.log(player1.hand)
     
     // Set a first card in the middle to start the game
     let actualCard = game.getCurrentCard()
 
     board.update(player1,player2,actualCard)
     
-    console.log("First Current card")
-    console.log(actualCard[0])
+    // console.log("First Current card")
+    // console.log(actualCard[0])
 
     // After 1 minute, if players still have cards, the winner is the one with the fewest points
-    let winner = false;
-    // Initialize the timer at 59 sec.
-    let i = 59;
-    function onTimer() {
-        document.getElementById('timer').innerHTML = `Time left : ${i}`;
-        i--;
-        if (i < 0) {
-            board.weHaveAWinner(winner,player1,player2)
-            winner = true;
+
+    // let winner = false;
+    // let i = 59; // Initialize the timer at 59 sec.
+    // let gameTimer = function onTimer() {
+    //     document.getElementById('timer').innerHTML = `Time left : ${i}`;
+    //     i--;
+    //     if (i < 0) {
+    //         board.weHaveAWinner(winner,player1,player2)
+    //         winner = true;
+    //         clearTimeout(gameTimer)
+    //         // Reminder : clear Timeout utilizando una referencia
+    //     }
+    //     else {
+    //         setTimeout(onTimer, 1000);
+    //     }
+    // }
+
+    game.gameTimer()
+    // function onTimer() {
+    //     document.getElementById('timer').innerHTML = `Time left : ${i}`;
+    //     i--;
+    //     if (i < 0) {
+    //         board.weHaveAWinner(winner,player1,player2)
+    //         winner = true;
+    //         // Reminder : clear Timeout utilizando una referencia
+    //     }
+    //     else {
+    //         setTimeout(onTimer, 1000);
+    //     }
+    // }
+
+    // setTimeout(game.gameTimer,1000);
+    // setTimeout(gameTimer,1000);
+
+    function player2Move() {
+        player2.randomMove(actualCard,game.cards) // A ver si lo ponemos en el setTimeout
+        if (player2.hasPlayedACard && (actualCard[0].cardType === "skip" || actualCard[0].cardType === "reverse")) {
+            player1.isSkipped = true;
+            winner = game.checkFinished(player1,player2)
+            if (!winner) {
+                player2.hasPlayedACard = false;
+                setTimeout(player2Move,1600)
+            }
+            //  {
+            //     player2.randomMove(actualCard,game.cards)
+            //     board.update(player1,player2,actualCard)
+            //     player1.isSkipped = false;
+            //     player2.isPlaying = false;
+            // },1600)
+        } else {
+            player1.isSkipped = false
         }
-        else {
-            setTimeout(onTimer, 1000);
+        setTimeout(function(){
+            if (!winner) { // Even if game is ended, we have to set this condition as this is a Timeout function,
+                            // otherwise the board will be updated with cards
+            board.update(player1,player2,actualCard)
+            }
+            player2.isPlaying = false;
+        },800)
+        winner = game.checkFinished(player1,player2)
+        if (winner) {
+            board.weHaveAWinner(game.winner,player1,player2)
         }
+        // board.update(player1,player2,actualCard)
     }
-    setTimeout(onTimer,1000);
  
+    let winner = game.checkFinished(player1,player2)
     // Action when player clicks on canvas and only if game is not finished
     document.getElementById('uno').addEventListener('click', function(event) {
 
-        if (!game.checkFinished(player1,player2) && !winner) {
-            if (!player2.isPlaying) {
+        if (!game.checkFinished(player1,player2)) {
+            if (!player2.isPlaying && !player1.isSkipped) {
             // Check position of the click
             let position = board.getCursorPosition(event)
 
@@ -191,17 +330,40 @@ document.getElementById("start").onclick = function (event) {
             console.log("PLAYER 2 HAND")
             console.log(player2.hand)
 
+            console.log("SKIPPED ?")
+            console.log(player1.isSkipped)
+
+            console.log("player2.isPlaying?")
+            console.log(player2.isPlaying)
+
             // Player 2 will play randomly, only if player one either played a card, or picked one from the deck
             if (player1.hasPlayed === true && !player2.isSkipped) {
-                player2.randomMove(actualCard,game.cards)
+                player2Move()
+
+
+                // player2.randomMove(actualCard,game.cards) // A ver si lo ponemos en el setTimeout
+                // if (actualCard[0].cardType === "skip") {
+                //     player1.isSkipped = true;
+                //     setTimeout(function() {
+                //         player2.randomMove(actualCard,game.cards)
+                //         board.update(player1,player2,actualCard)
+                //         player1.isSkipped = false;
+                //         player2.isPlaying = false;
+                //     },1600)
+                // }
             }
-            setTimeout(function(){
-                if (!winner) { // Even if game is ended, we have to set this condition as this is a Timeout function, otherwise the board will be updated with cards
-                board.update(player1,player2,actualCard)
-                }
-                player2.isPlaying = false;
-            },800)
-            // board.update(player1,player2,actualCard)
+
+
+
+
+            // setTimeout(function(){
+            //     if (!winner) { // Even if game is ended, we have to set this condition as this is a Timeout function,
+            //                    // otherwise the board will be updated with cards
+            //     board.update(player1,player2,actualCard)
+            //     }
+            //     player2.isPlaying = false;
+            // },800)
+            // // board.update(player1,player2,actualCard)
             
             player1.hasPlayed = false;
 
@@ -209,12 +371,14 @@ document.getElementById("start").onclick = function (event) {
             // added to the deck, and the deck will be shuffled
             game.checkCurrentCardDeck(actualCard)
             player2.isSkipped = false;
+            player2.isPlaying = false;
+            player2.hasPlayedACard = false;
             
             // Each round : check if game is finished, and if so, who the winner is
             // let winner = game.checkFinished(player1,player2)
             winner = game.checkFinished(player1,player2)
             if (winner) {
-                board.weHaveAWinner(winner,player1,player2)
+                board.weHaveAWinner(game.winner,player1,player2)
             }
         }
     })

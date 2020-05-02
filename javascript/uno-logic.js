@@ -1,6 +1,29 @@
 class UnoGame {
-    constructor(cards){
+    constructor(cards,board,player1,player2){
       this.cards = cards;
+      this.seconds = 59;
+      this.gameExecuting = false;
+      this.board = board
+      this.player1 = player1
+      this.player2 = player2
+      this.winner = null;
+    }
+
+    gameTimer() {
+        document.getElementById('timer').innerHTML = `Time left : ${this.seconds}`;
+        this.seconds--;
+        if (this.seconds < 0) {
+            this.gameExecuting = false
+            let winner = this.checkFinished(this.player1,this.player2);
+            this.board.weHaveAWinner(winner,this.player1,this.player2)
+            // Reminder : clear Timeout utilizando una referencia
+        }
+        else {
+          let winner = this.checkFinished(this.player1,this.player2)
+          if (!winner) {
+            setTimeout(this.gameTimer.bind(this), 1000);
+          }
+        }
     }
 
     shuffleCards() {
@@ -35,18 +58,22 @@ class UnoGame {
     }
 
     checkFinished(player1,player2) {
-      if (player1.hand.length === 0 || player2.hand.length === 0) {
-        return player1.hand.length === 0 ? player1 : player2
+      if (player1.hand.length === 0 || player2.hand.length === 0 || !this.gameExecuting) {
+        this.winner = player1.hand.length === 0 ? player1 : player2
+
+        return true
       }
       return false
     }
 }
 
 class Player {
-  constructor(hand,playerNumber,hasPlayed){
-    this.hand = hand;
+  constructor(playerNumber){
+    this.hand = null;
     this.playerNumber = playerNumber;
     this.hasPlayed = false;
+    this.hasPlayedACard = false;
+    this.hasPickedFromDeck = false;
     this.isPlaying = false;
     this.isSkipped = false;
   }
@@ -91,10 +118,12 @@ class Player {
         if (this.isPlayable(this.hand[rand],currentCard[0])) {
           currentCard.unshift(...this.hand.splice(rand,1));
           found = true
+          this.hasPlayedACard = true;
         }
       }
     } else {
         this.pickCards(1,deck)
+        this.hasPickedFromDeck = true;
     }
   }
 
