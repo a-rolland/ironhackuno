@@ -7,9 +7,6 @@ class UnoCanvas {
         this.ctx.fillRect(0,0,900,500)
     }
 
-    // Update when : the game starts
-    // when player 1 plays
-    // when player 2 plays
     update(firstPlayer,secondPlayer,currentCard) {
         this.clearBoard()
         this.ctx.save()
@@ -28,16 +25,10 @@ class UnoCanvas {
 
     mostrarDeck() {
         this.ctx.save()
-        // let image = new Image()
-        // image.src = `images/back-reduce.png`; 
-        // this.ctx.drawImage(image, 25, 200, 75,100);
         this.ctx.fillRect(25, 200, 75,100)
         this.ctx.restore()
     }
 
-    // Show player hand
-    // Only player 1 hand can be seen
-    // The rest is faced down
     mostrarCartasPlayer(player) {
         let initX = 100
         let Y = 400
@@ -46,17 +37,13 @@ class UnoCanvas {
         }
         this.ctx.save()
         for (let i=0;i<player.hand.length;i++) {
-            // let cardName = player.hand[i].name
-            // let image = new Image()
-            // image.src = `images/${cardName}.png`;
-            // this.ctx.drawImage(image, initX, Y, 75,100);
             let cardColor = player.hand[i].color
             let cardLogo = player.hand[i].cardLogo
             if (cardColor === 'multi') {
                 cardColor = "grey"
             }
             if (player.playerNumber === 1) {
-                this.ctx.fillStyle = `${cardColor}` // OJO con carta WILD & WILD +4
+                this.ctx.fillStyle = `${cardColor}`
             }
             this.ctx.fillRect(initX, Y, 75,100);
 
@@ -87,18 +74,12 @@ class UnoCanvas {
 
     mostrarCurrentCard(currentCard) {
         this.ctx.save()
-        // console.log("CURRENT NAME")
-        // console.log(currentCard[0])
-        // let currentCardName = currentCard[0].name
-        // let image = new Image()
-        // image.src = `images/${currentCardName}.png`; 
-        // this.ctx.drawImage(image, 400, 200, 75,100);
         let cardColor = currentCard[0].color
         let cardLogo = currentCard[0].cardLogo
         if (cardColor === 'multi') {
             cardColor = "grey"
         }
-        this.ctx.fillStyle = `${cardColor}` // OJO con carta WILD & WILD +4
+        this.ctx.fillStyle = `${cardColor}`
         this.ctx.fillRect(400, 200, 75,100);
 
         this.ctx.fillStyle = "black"
@@ -110,11 +91,10 @@ class UnoCanvas {
         const rect = this.canvas.getBoundingClientRect()
         const x = event.clientX - rect.left
         const y = event.clientY - rect.top
-        // console.log("x: " + x + " y: " + y)
         return [x,y]
     }
 
-    weHaveAWinner(player,player1,player2) {
+    weHaveAWinner(player1,player2,player) {
         this.clearBoard()
         this.ctx.save()
         this.ctx.fillStyle = "black"
@@ -123,10 +103,10 @@ class UnoCanvas {
             const totalPlayer1 = player1.hand.reduce((total, current) => total + current.value,0); 
             const totalPlayer2 = player2.hand.reduce((total, current) => total + current.value,0); 
             totalPlayer1 > totalPlayer2 ? this.ctx.fillText(`Timeout ! Player 2 won !!! With ${totalPlayer2} points`, 75, this.canvas.height/2) :
-                                                 this.ctx.fillText(`Timeout ! Player 1 won !!! With ${totalPlayer1} points`, 75, this.canvas.height/2)
-            
+                                                 this.ctx.fillText(`Timeout ! You won !!! With ${totalPlayer1} points`, 75, this.canvas.height/2)   
         } else {
-            this.ctx.fillText(`Player ${player.playerNumber} has won !!!`, this.canvas.width/3,this.canvas.height/2);
+            let message = player.playerNumber === 1 ? 'You won !!!' : 'Player 2 won !!!';
+            this.ctx.fillText(message, this.canvas.width/3,this.canvas.height/2);
         }
         this.ctx.restore()
     }

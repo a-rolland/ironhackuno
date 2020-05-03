@@ -1,6 +1,7 @@
 class UnoGame {
     constructor(cards,board,player1,player2){
       this.cards = cards;
+      this.actualCard = [];
       this.seconds = 59;
       this.gameExecuting = false;
       this.board = board
@@ -14,9 +15,7 @@ class UnoGame {
         this.seconds--;
         if (this.seconds < 0) {
             this.gameExecuting = false
-            let winner = this.checkFinished(this.player1,this.player2);
-            this.board.weHaveAWinner(winner,this.player1,this.player2)
-            // Reminder : clear Timeout utilizando una referencia
+            this.board.weHaveAWinner(this.player1,this.player2)
         }
         else {
           let winner = this.checkFinished(this.player1,this.player2)
@@ -30,11 +29,8 @@ class UnoGame {
       let m = this.cards.length;
       let t;
       let i;
-      // While there remain elements to shuffle
       while (m) {
-        // Pick a remaining element
         i = Math.floor(Math.random() * m--);
-        // And swap it with the current element.
         t = this.cards[m];
         this.cards[m] = this.cards[i];
         this.cards[i] = t;
@@ -42,8 +38,10 @@ class UnoGame {
       return undefined
     }
 
-    dealCards(player) {
-      player.hand = this.cards.splice(this.cards.length-7, 7);
+    dealCards(playersArray) {
+      for (let player=0;player<playersArray.length;player++) {
+        playersArray[player].hand = this.cards.splice(this.cards.length-7, 7);
+      }
     }
 
     getCurrentCard() {
@@ -57,14 +55,26 @@ class UnoGame {
       }
     }
 
-    checkFinished(player1,player2) {
-      if (player1.hand.length === 0 || player2.hand.length === 0 || !this.gameExecuting) {
-        this.winner = player1.hand.length === 0 ? player1 : player2
-
+    checkFinished() {
+      if (this.player1.hand.length === 0 || this.player2.hand.length === 0 || !this.gameExecuting) {
+        this.winner = this.player1.hand.length === 0 ? this.player1 : this.player2
         return true
       }
       return false
     }
+
+    playerOneMove() {
+      let position = this.board.getCursorPosition(event)
+      let cardToBePlayed = this.player1.getCardPosition(position)
+      this.player1.play(cardToBePlayed,this.actualCard,this.cards)
+      if ((this.player1.hasPlayedACard && this.actualCard[0].cardType === "skip") ||
+          (this.player1.hasPlayedACard && this.actualCard[0].cardType === "reverse")) {
+              this.player2.isSkipped = true;
+          }
+      this.board.update(this.player1,this.player2,this.actualCard)
+    }
+
+    // ANADIR playerTwoMove()
 }
 
 class Player {
@@ -78,12 +88,10 @@ class Player {
     this.isSkipped = false;
   }
 
-  // Pick a card from the deck
   pickCards(quantity,deck) {
     this.hand.push(...deck.splice(deck.length-quantity,  quantity));
   }
 
-  // Compare a card from the player hand and check if it can be played
   isPlayable(card,currentCard) {
     if (card.cardType === currentCard.cardType || 
       card.color === currentCard.color || 
@@ -96,7 +104,6 @@ class Player {
     return false
   }
 
-  // Check if player 2 (computer) has an option to play
   getPlayableCards(currentCard) {
     for (let i=0;i<this.hand.length;i++) {
         if (this.isPlayable(this.hand[i],currentCard[0])) {
@@ -106,11 +113,8 @@ class Player {
     return false
   }
 
-  // Make the player 2 (computer) play if he can
-  // He will either put a card, or pick one if he doesnt have any option
   randomMove(currentCard,deck) {
     let canPlay = this.getPlayableCards(currentCard)
-    console.log(canPlay)
     if (canPlay) {
       let found = false;
       while (!found) {
@@ -127,9 +131,6 @@ class Player {
     }
   }
 
-  // If player clicks on a playable card, this card will replace the current middle card
-  // If he clicks on the deck, he will pick a card from it
-  // Else : nothing will happen
   play(pos,currentCard,deck) {
     if (typeof pos === 'string') {
       if (pos === 'deck') {
@@ -138,11 +139,11 @@ class Player {
         this.pickCards(1,deck)
       } else if (pos === 'current') {
         console.log("CURRENT CARD :")
-        console.log(currentCard)
       }
     } else {
       if (this.isPlayable(this.hand[pos],currentCard[0])) {
         currentCard.unshift(...this.hand.splice(pos,1))
+        this.hasPlayedACard = true
         this.hasPlayed = true;
       } else {
         console.log("NOT POSSIBLE TO PLAY THIS CARD")
@@ -183,17 +184,3 @@ class Player {
     x >=400 && x <=475 &&  y>= 100 && y<=300 ? 'current' : 'This is not a card'
   }
 }
-
-// getPlayableCards(currentCard) {
-//   let possibilities = 0
-//   let playersChoice = []
-
-//   for (let i=0;i<this.hand.length;i++) {
-//       // console.log(this.hand[i])
-//       if (this.isPlayable(this.hand[i],currentCard[0])) {
-//           possibilities ++
-//           playersChoice.push(this.hand[i])
-//       }
-//   }
-//   return playersChoice
-// }
