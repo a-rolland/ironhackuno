@@ -71,7 +71,14 @@ class UnoGame {
           (this.player1.hasPlayedACard && this.actualCard[0].cardType === "reverse")) {
               this.player2.isSkipped = true;
           }
+      this.checkDraw2(this.player1,this.player2)
       this.board.update(this.player1,this.player2,this.actualCard)
+    }
+
+    checkDraw2(player,recipient) {
+      if (player.hasPlayedACard && this.actualCard[0].cardType === "draw-2") {
+        recipient.pickCards(2,this.cards)
+      }
     }
 
     // ANADIR playerTwoMove()
