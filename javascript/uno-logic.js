@@ -8,6 +8,7 @@ class UnoGame {
       this.player1 = player1
       this.player2 = player2
       this.winner = null;
+      this.paused = false;
     }
 
     gameTimer() {
@@ -72,27 +73,25 @@ class UnoGame {
               this.player2.isSkipped = true;
           }
       this.checkDraw2(this.player1,this.player2)
-                // if (this.player1.hasPlayedACard && this.actualCard[0].cardType === 'wild') {
-                //   console.log("Select a color")
-                //   this.player1.hasPlayed = false
-                //   console.log(this.actualCard[0].color)
-                //   document.getElementById("uno").addEventListener('click', function(event) {
-                //     if (this.player1.hasPlayedACard && this.actualCard[0].color === 'multi') {
-                //     console.log(this.actualCard[0].color)
-                //     let colorPosition = this.board.getCursorPosition(event)
-                //     let color = this.player1.getCardPosition(colorPosition)
-                //     this.actualCard[0].color = color
-                //     console.log(this.actualCard[0].color)
-                //     if (this.actualCard[0].color !== 'multi') {
-                //       this.player1.hasPlayed = true;
-                //       this.player2.isPlaying = true;
-                //       this.player1.hasPlayedACard
-                //     }
-                //     this.board.update(this.player1,this.player2,this.actualCard)
-                //     this.playerTwoMove()
-                //   }
-                //   }.bind(this))
-                // }
+      
+      // Block to select the card color
+                            // if (this.player1.hasPlayedACard && this.actualCard[0].cardType === 'wild') {
+                            //   // Game paused - action required from player1
+                            //   this.paused = true;
+
+                            //   document.getElementById("uno").addEventListener('click', function(event) {
+                            //     console.log("Works")
+                            //     let colorPosition = this.board.getCursorPosition(event)
+                            //     let color = this.player1.getCardPosition(colorPosition)
+                            //     this.actualCard[0].color = color
+                            //     if (this.actualCard[0].color === 'red') {
+                            //       this.board.update(this.player1,this.player2,this.actualCard)
+                            //       // this.paused = false;
+                            //     }
+                            //   }.bind(this))
+                            //   console.log("out")
+                            //   this.paused = false;
+                            // }
       this.board.update(this.player1,this.player2,this.actualCard)
     }
 
@@ -126,14 +125,13 @@ class UnoGame {
         recipient.pickCards(2,this.cards)
       }
     }
-
 }
 
 class Player {
   constructor(playerNumber){
     this.hand = null;
     this.playerNumber = playerNumber;
-    this.hasPlayed = false;
+    // this.hasPlayed = false;
     this.hasPlayedACard = false;
     this.hasPickedFromDeck = false;
     this.isPlaying = false;
@@ -183,22 +181,37 @@ class Player {
     }
   }
 
+  // play(pos,currentCard,deck) {
+  //   if (typeof pos === 'string') {
+  //     if (pos === 'deck') {
+  //       console.log('Deck, you picked one card !')
+  //       this.hasPlayed = true;
+  //       this.pickCards(1,deck)
+  //     } else if (pos === 'current') {
+  //       console.log("CURRENT CARD :")
+  //     }
+  //   } else {
+  //     if (this.isPlayable(this.hand[pos],currentCard[0])) {
+  //       currentCard.unshift(...this.hand.splice(pos,1))
+  //       this.hasPlayedACard = true;
+  //       this.hasPlayed = true;
+  //     } else {
+  //       console.log("NOT POSSIBLE TO PLAY THIS CARD")
+  //     }
+  //   }
+  // }
+
   play(pos,currentCard,deck) {
     if (typeof pos === 'string') {
       if (pos === 'deck') {
         console.log('Deck, you picked one card !')
-        this.hasPlayed = true;
         this.pickCards(1,deck)
-      } else if (pos === 'current') {
-        console.log("CURRENT CARD :")
+        this.hasPickedFromDeck = true;
       }
     } else {
       if (this.isPlayable(this.hand[pos],currentCard[0])) {
         currentCard.unshift(...this.hand.splice(pos,1))
-        this.hasPlayedACard = true
-        this.hasPlayed = true;
-      } else {
-        console.log("NOT POSSIBLE TO PLAY THIS CARD")
+        this.hasPlayedACard = true;
       }
     }
   }

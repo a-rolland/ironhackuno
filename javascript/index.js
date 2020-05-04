@@ -168,21 +168,21 @@ document.getElementById("start").onclick = function (event) {
 
     document.getElementById('uno').addEventListener('click', function(event) {
 
-        if (!game.checkFinished() && !player2.isPlaying) {
+        if (!game.checkFinished() && !player2.isPlaying && !game.paused) {
             if (!player1.isSkipped) {
                 game.playerOneMove()
             }
             player2.isPlaying = true
 
-            if (player1.hasPlayed && !player2.isSkipped) {
+            if (!player2.isSkipped && (player1.hasPlayedACard || player1.hasPickedFromDeck) && !game.paused) {
                 game.playerTwoMove()
             } else {
                 player2.isPlaying = false;
-            }           
-            player1.hasPlayed = false;
+            }  
+
             player1.hasPlayedACard = false;
+            player1.hasPickedFromDeck = false;
             player2.isSkipped = false;
-            player2.hasPlayedACard = false;
 
             game.checkCurrentCardDeck(game.actualCard)
             if (game.checkFinished()) {
