@@ -15,6 +15,7 @@ class UnoCanvas {
         this.mostrarCartasPlayer(firstPlayer)
         this.mostrarCartasPlayer(secondPlayer)
         this.mostrarCurrentCard(currentCard)
+        this.chooseAColor()
         this.ctx.restore()
     }
 
@@ -92,6 +93,19 @@ class UnoCanvas {
         const x = event.clientX - rect.left
         const y = event.clientY - rect.top
         return [x,y]
+    }
+
+    chooseAColor() {
+        this.ctx.save()
+        this.ctx.fillStyle = 'red'
+        this.ctx.fillRect(575, 200, 45, 45);
+        this.ctx.fillStyle = 'green'
+        this.ctx.fillRect(630, 200, 45,45);
+        this.ctx.fillStyle = 'blue'
+        this.ctx.fillRect(575, 255, 45,45);
+        this.ctx.fillStyle = 'yellow'
+        this.ctx.fillRect(630, 255, 45,45);
+        this.ctx.restore()
     }
 
     weHaveAWinner(player1,player2,player) {

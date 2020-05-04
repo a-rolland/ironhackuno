@@ -103,6 +103,48 @@ const cards = [
     { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
     { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
     { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+
     { name: 'draw-4-wild', cardLogo: '+4', cardType: 'draw-4-wild', value: 50, color: 'multi' },
     { name: 'draw-4-wild', cardLogo: '+4', cardType: 'draw-4-wild', value: 50, color: 'multi' },
     { name: 'draw-4-wild', cardLogo: '+4', cardType: 'draw-4-wild', value: 50, color: 'multi' },
@@ -124,32 +166,6 @@ document.getElementById("start").onclick = function (event) {
     board.update(player1,player2,game.actualCard)
     game.gameTimer()
 
-    // Ver como poner esta funcion dentro de la Clase Game (problema con Closure)
-    function playerTwoMove() {
-        player2.randomMove(game.actualCard,game.cards)
-        game.checkDraw2(player2,player1)
-        if ((player2.hasPlayedACard && game.actualCard[0].cardType === "skip") || 
-            (player2.hasPlayedACard && game.actualCard[0].cardType === "reverse")) {
-            player1.isSkipped = true;
-            if (!game.checkFinished()) {
-                player2.hasPlayedACard = false;
-                board.update(player1,player2,game.actualCard)
-                setTimeout(playerTwoMove,1600)
-            }
-        } else {
-            player1.isSkipped = false
-        }
-        setTimeout(function(){
-            if (!game.checkFinished()) {
-                board.update(player1,player2,game.actualCard)
-            }
-            player2.isPlaying = false;
-        },800)
-        if (game.checkFinished()) {
-            board.weHaveAWinner(player1,player2,game.winner)
-        }
-    }
-
     document.getElementById('uno').addEventListener('click', function(event) {
 
         if (!game.checkFinished() && !player2.isPlaying) {
@@ -159,7 +175,7 @@ document.getElementById("start").onclick = function (event) {
             player2.isPlaying = true
 
             if (player1.hasPlayed && !player2.isSkipped) {
-                playerTwoMove()
+                game.playerTwoMove()
             } else {
                 player2.isPlaying = false;
             }           
@@ -175,3 +191,40 @@ document.getElementById("start").onclick = function (event) {
         }
     })
 }
+
+
+
+
+
+
+
+
+// Backup block
+
+// playerTwoMove()
+
+// Ver como poner esta funcion dentro de la Clase Game (problema con Closure)
+// function playerTwoMove() {
+//     player2.randomMove(game.actualCard,game.cards)
+//     game.checkDraw2(player2,player1)
+//     if ((player2.hasPlayedACard && game.actualCard[0].cardType === "skip") || 
+//         (player2.hasPlayedACard && game.actualCard[0].cardType === "reverse")) {
+//         player1.isSkipped = true;
+//         if (!game.checkFinished()) {
+//             player2.hasPlayedACard = false;
+//             board.update(player1,player2,game.actualCard)
+//             setTimeout(playerTwoMove,1600)
+//         }
+//     } else {
+//         player1.isSkipped = false
+//     }
+//     setTimeout(function(){
+//         if (!game.checkFinished()) {
+//             board.update(player1,player2,game.actualCard)
+//         }
+//         player2.isPlaying = false;
+//     },800)
+//     if (game.checkFinished()) {
+//         board.weHaveAWinner(player1,player2,game.winner)
+//     }
+// }

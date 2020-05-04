@@ -72,8 +72,54 @@ class UnoGame {
               this.player2.isSkipped = true;
           }
       this.checkDraw2(this.player1,this.player2)
+                // if (this.player1.hasPlayedACard && this.actualCard[0].cardType === 'wild') {
+                //   console.log("Select a color")
+                //   this.player1.hasPlayed = false
+                //   console.log(this.actualCard[0].color)
+                //   document.getElementById("uno").addEventListener('click', function(event) {
+                //     if (this.player1.hasPlayedACard && this.actualCard[0].color === 'multi') {
+                //     console.log(this.actualCard[0].color)
+                //     let colorPosition = this.board.getCursorPosition(event)
+                //     let color = this.player1.getCardPosition(colorPosition)
+                //     this.actualCard[0].color = color
+                //     console.log(this.actualCard[0].color)
+                //     if (this.actualCard[0].color !== 'multi') {
+                //       this.player1.hasPlayed = true;
+                //       this.player2.isPlaying = true;
+                //       this.player1.hasPlayedACard
+                //     }
+                //     this.board.update(this.player1,this.player2,this.actualCard)
+                //     this.playerTwoMove()
+                //   }
+                //   }.bind(this))
+                // }
       this.board.update(this.player1,this.player2,this.actualCard)
     }
+
+    playerTwoMove() {
+      this.player2.randomMove(this.actualCard,this.cards)
+      this.checkDraw2(this.player2,this.player1)
+      if ((this.player2.hasPlayedACard && this.actualCard[0].cardType === "skip") || 
+          (this.player2.hasPlayedACard && this.actualCard[0].cardType === "reverse")) {
+          this.player1.isSkipped = true;
+          if (!this.checkFinished()) {
+              this.player2.hasPlayedACard = false;
+              this.board.update(this.player1,this.player2,this.actualCard)
+              setTimeout(this.playerTwoMove.bind(this),1600)
+          }
+      } else {
+          this.player1.isSkipped = false
+      }
+      setTimeout(function(){
+          if (!this.checkFinished()) {
+              this.board.update(this.player1,this.player2,this.actualCard)
+          }
+          this.player2.isPlaying = false;
+      }.bind(this),800)
+      if (this.checkFinished()) {
+          this.board.weHaveAWinner(this.player1,this.player2,this.winner)
+      }
+  }
 
     checkDraw2(player,recipient) {
       if (player.hasPlayedACard && this.actualCard[0].cardType === "draw-2") {
@@ -81,7 +127,6 @@ class UnoGame {
       }
     }
 
-    // ANADIR playerTwoMove()
 }
 
 class Player {
@@ -162,32 +207,37 @@ class Player {
     let x = position[0];
     let y = position[1];
 
-    return x >=100 && x <=175 && y>= 400 ? 0 : 
-    x >=200 && x <=275 && y>= 400 && this.hand.length >=2 ? 1 :
-    x >=300 && x <=375 && y>= 400 && this.hand.length >=3 ? 2 :
-    x >=400 && x <=475 && y>= 400 && this.hand.length >=4 ? 3 :
-    x >=500 && x <=575 && y>= 400 && this.hand.length >=5 ? 4 :
-    x >=600 && x <=675 && y>= 400 && this.hand.length >=6 ? 5 : 
-    x >=700 && x <=775 && y>= 400 && this.hand.length >=7 ? 6 :
-    x >=800 && x <=875 && y>= 400 && this.hand.length >=8 ? 7 :
+    return x >=100 && x <=175 && y >= 400 ? 0 : 
+    x >=200 && x <=275 && y >= 400 && this.hand.length >=2 ? 1 :
+    x >=300 && x <=375 && y >= 400 && this.hand.length >=3 ? 2 :
+    x >=400 && x <=475 && y >= 400 && this.hand.length >=4 ? 3 :
+    x >=500 && x <=575 && y >= 400 && this.hand.length >=5 ? 4 :
+    x >=600 && x <=675 && y >= 400 && this.hand.length >=6 ? 5 : 
+    x >=700 && x <=775 && y >= 400 && this.hand.length >=7 ? 6 :
+    x >=800 && x <=875 && y >= 400 && this.hand.length >=8 ? 7 :
 
-    x >=150 && x <=225 && y>= 350 && y<400 && this.hand.length >=9 ? 8 :
-    x >=250 && x <=325 && y>= 350 && y<400 && this.hand.length >=10 ? 9 :
-    x >=350 && x <=425 && y>= 350 && y<400 && this.hand.length >=11 ? 10 :
-    x >=450 && x <=525 && y>= 350 && y<400 && this.hand.length >=12 ? 11 :
-    x >=550 && x <=625 && y>= 350 && y<400 && this.hand.length >=13 ? 12 :
-    x >=650 && x <=725 && y>= 350 && y<400 && this.hand.length >=14 ? 13 :
-    x >=750 && x <=825 && y>= 350 && y<400 && this.hand.length >=15 ? 14 :
+    x >=150 && x <=225 && y >= 350 && y <400 && this.hand.length >=9 ? 8 :
+    x >=250 && x <=325 && y >= 350 && y <400 && this.hand.length >=10 ? 9 :
+    x >=350 && x <=425 && y >= 350 && y <400 && this.hand.length >=11 ? 10 :
+    x >=450 && x <=525 && y >= 350 && y <400 && this.hand.length >=12 ? 11 :
+    x >=550 && x <=625 && y >= 350 && y <400 && this.hand.length >=13 ? 12 :
+    x >=650 && x <=725 && y >= 350 && y <400 && this.hand.length >=14 ? 13 :
+    x >=750 && x <=825 && y >= 350 && y <400 && this.hand.length >=15 ? 14 :
 
-    x >=200 && x <=275 && y>= 325 && y<350 && this.hand.length >=16 ? 15 :
-    x >=300 && x <=375 && y>= 325 && y<350 && this.hand.length >=17 ? 16 :
-    x >=400 && x <=475 && y>= 325 && y<350 && this.hand.length >=18 ? 17 :
-    x >=500 && x <=575 && y>= 325 && y<350 && this.hand.length >=19 ? 18 :
-    x >=600 && x <=675 && y>= 325 && y<350 && this.hand.length >=20 ? 19 :
-    x >=700 && x <=775 && y>= 325 && y<350 && this.hand.length >=21 ? 20 :
-    x >=800 && x <=875 && y>= 325 && y<350 && this.hand.length >=22 ? 21 :
+    x >=200 && x <=275 && y >= 325 && y <350 && this.hand.length >=16 ? 15 :
+    x >=300 && x <=375 && y >= 325 && y <350 && this.hand.length >=17 ? 16 :
+    x >=400 && x <=475 && y >= 325 && y <350 && this.hand.length >=18 ? 17 :
+    x >=500 && x <=575 && y >= 325 && y <350 && this.hand.length >=19 ? 18 :
+    x >=600 && x <=675 && y >= 325 && y <350 && this.hand.length >=20 ? 19 :
+    x >=700 && x <=775 && y >= 325 && y <350 && this.hand.length >=21 ? 20 :
+    x >=800 && x <=875 && y >= 325 && y <350 && this.hand.length >=22 ? 21 :
 
-    x >=25 && x <=100 &&  y>= 200 && y<=300 ? 'deck' :
-    x >=400 && x <=475 &&  y>= 100 && y<=300 ? 'current' : 'This is not a card'
+    x >=575 && x <= 620 && y >= 200 && y <= 245 ? 'red' :
+    x >=575 && x <= 620 && y >= 255 && y <= 300 ? 'blue' :
+    x >=630 && x <= 675 && y >= 200 && y <= 250 ? 'green' :
+    x >=639 && x <= 675 && y >= 255 && y <= 300 ? 'yellow' :
+    
+    x >=25 && x <=100 &&  y >= 200 && y <=300 ? 'deck' :
+    x >=400 && x <=475 &&  y >= 100 && y <=300 ? 'current' : 'This is not a card'
   }
 }
