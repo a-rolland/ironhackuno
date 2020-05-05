@@ -74,30 +74,34 @@ class UnoGame {
           }
       this.checkDraw2(this.player1,this.player2)
       
-      // Block to select the card color
-                            // if (this.player1.hasPlayedACard && this.actualCard[0].cardType === 'wild') {
-                            //   // Game paused - action required from player1
-                            //   this.paused = true;
-
-                            //   document.getElementById("uno").addEventListener('click', function(event) {
-                            //     console.log("Works")
-                            //     let colorPosition = this.board.getCursorPosition(event)
-                            //     let color = this.player1.getCardPosition(colorPosition)
-                            //     this.actualCard[0].color = color
-                            //     if (this.actualCard[0].color === 'red') {
-                            //       this.board.update(this.player1,this.player2,this.actualCard)
-                            //       // this.paused = false;
-                            //     }
-                            //   }.bind(this))
-                            //   console.log("out")
-                            //   this.paused = false;
-                            // }
+      if (this.player1.hasPlayedACard && this.actualCard[0].cardType === 'wild') {
+        this.paused = true;
+      }
       this.board.update(this.player1,this.player2,this.actualCard)
+    }
+
+    pickColor() {
+      let position = this.board.getCursorPosition(event)
+      let cardToBePlayed = this.player1.getCardPosition(position)
+      if (cardToBePlayed === 'red' || cardToBePlayed === 'green' || cardToBePlayed === 'blue' || cardToBePlayed === 'yellow') {
+        return cardToBePlayed
+      }
+      return null;
+    }
+
+    changeColor(color) {
+      this.actualCard[0].color = color
+      this.board.update(this.player1,this.player2,this.actualCard)
+      this.paused = false;
+      this.player1.hasPlayedACard = true;
     }
 
     playerTwoMove() {
       this.player2.randomMove(this.actualCard,this.cards)
       this.checkDraw2(this.player2,this.player1)
+      if (this.player2.hasPlayedACard && this.actualCard[0].cardType === 'wild') {
+
+      }
       if ((this.player2.hasPlayedACard && this.actualCard[0].cardType === "skip") || 
           (this.player2.hasPlayedACard && this.actualCard[0].cardType === "reverse")) {
           this.player1.isSkipped = true;
@@ -147,7 +151,6 @@ class Player {
       card.color === currentCard.color || 
       card.cardType === 'wild' || 
       card.cardType === 'draw-4-wild' || 
-      currentCard.cardType === 'wild' ||
       currentCard.cardType === 'draw-4-wild') {
         return true
       }

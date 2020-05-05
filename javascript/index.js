@@ -104,46 +104,46 @@ const cards = [
     { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
     { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
 
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
 
     { name: 'draw-4-wild', cardLogo: '+4', cardType: 'draw-4-wild', value: 50, color: 'multi' },
     { name: 'draw-4-wild', cardLogo: '+4', cardType: 'draw-4-wild', value: 50, color: 'multi' },
@@ -151,8 +151,15 @@ const cards = [
     { name: 'draw-4-wild', cardLogo: '+4', cardType: 'draw-4-wild', value: 50, color: 'multi' }
   ];
 
-document.getElementById("start").onclick = function (event) {
+let start = document.getElementById("start")
+start.onclick = function (event) {
 
+    start.hidden = true;
+    let reload = document.getElementById("reload");
+    reload.style.visibility = "visible";
+    reload.onclick = function(event) {
+        window.location.reload()
+    }
     let player1 = new Player(1)
     let player2 = new Player(2)
     let players = [player1,player2]
@@ -168,9 +175,17 @@ document.getElementById("start").onclick = function (event) {
 
     document.getElementById('uno').addEventListener('click', function(event) {
 
-        if (!game.checkFinished() && !player2.isPlaying && !game.paused) {
+        if (!game.checkFinished() && (!player2.isPlaying || game.paused)) {
             if (!player1.isSkipped) {
-                game.playerOneMove()
+                if (game.paused) {
+                    let color = game.pickColor()
+                    if (color === null) {
+                        return
+                    }
+                    game.changeColor(color)
+                } else {
+                    game.playerOneMove()
+                }
             }
             player2.isPlaying = true
 
@@ -191,7 +206,6 @@ document.getElementById("start").onclick = function (event) {
         }
     })
 }
-
 
 
 

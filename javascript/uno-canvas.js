@@ -122,13 +122,13 @@ class UnoCanvas {
 
     chooseAColor() {
         this.ctx.save()
-        this.ctx.fillStyle = '#ff5555'
+        this.ctx.fillStyle = '#ff5555' // red
         this.ctx.fillRect(575, 200, 45, 45);
-        this.ctx.fillStyle = '#55aa55'
+        this.ctx.fillStyle = '#55aa55' // green
         this.ctx.fillRect(630, 200, 45,45);
-        this.ctx.fillStyle = '#5555ff'
+        this.ctx.fillStyle = '#5555ff' // blue
         this.ctx.fillRect(575, 255, 45,45);
-        this.ctx.fillStyle = '#ffaa00'
+        this.ctx.fillStyle = '#ffaa00' // yellow
         this.ctx.fillRect(630, 255, 45,45);
         this.ctx.restore()
     }
