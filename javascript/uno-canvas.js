@@ -7,6 +7,13 @@ class UnoCanvas {
         this.ctx.fillRect(0,0,900,500)
     }
 
+    getCursorPosition(event) {
+        const rect = this.canvas.getBoundingClientRect()
+        const x = event.clientX - rect.left
+        const y = event.clientY - rect.top
+        return [x,y]
+    }
+
     update(firstPlayer,secondPlayer,currentCard) {
         this.clearBoard()
         this.ctx.save()
@@ -28,69 +35,17 @@ class UnoCanvas {
         this.facedDownCard(25, 200, 75, 100)
     }
 
-    facedDownCard(x,y) {
+    mostrarCurrentCard(currentCard) {
         this.ctx.save()
-        this.ctx.fillRect(x, y, 75, 100)
-        this.ctx.beginPath();
-        this.ctx.arc(x+75/2, y+100/2, 35, 0, 2 * Math.PI);
-        this.ctx.fillStyle = 'lightgrey'
-        this.ctx.fill()
-        this.ctx.strokeStyle = 'lightgrey'
-        this.ctx.stroke();
-        this.ctx.fillStyle = "grey"
-        this.ctx.font = "bold italic 17px Arial";
-        this.ctx.fillText('¡Hack',x+10,y+45);
-        this.ctx.fillText('Uno!',x+20,y+65);
-        this.ctx.restore()
-    }
-
-    drawACard(number,color,x,y,width,height) {
-        this.ctx.save()
-        this.ctx.fillStyle = color
-        this.ctx.fillRect(x,y,width,height);
-
-        // function draw arc ?
-        this.ctx.beginPath();
-        this.ctx.arc(x+width/2, y+height/2, 35, 0, 2 * Math.PI);
-        this.ctx.fillStyle = 'white'
-        this.ctx.fill()
-        this.ctx.strokeStyle = 'white'
-        this.ctx.stroke();
-
-        this.ctx.fillStyle = color;
-        this.ctx.font = number === 'SKIP' ? "lighter italic 20px Arial" : number === 'Reverse' ? "lighter italic 15px Arial" : 
-                        number === 'PickColor' ? "lighter italic 15px Arial" : "lighter italic 30px Arial"
-        number === 'SKIP' ? this.ctx.fillText(number,x+13,y+57) : number === 'Reverse' ? this.ctx.fillText(number,x+10,y+53) : 
-        number === 'PickColor' ? this.ctx.fillText(number,x+5,y+55) : number === '+2' ? this.ctx.fillText(number,x+18,y+60) :
-        number === '+4' ? this.ctx.fillText(number,x+18,y+60) : this.ctx.fillText(number,x+width/2.8,y+height/1.7);
-
-        this.ctx.fillStyle = "white"
-        this.ctx.font = number === 'SKIP' ? "normal 12px Arial" : number === 'Reverse' ? "normal 14px Arial" : number === 'PickColor' ? "normal 14px Arial" : "bold 17px Arial";
-
-        if (number === 'SKIP') {
-            // function fillText ?
-            this.ctx.fillText(number,x+2,y+12);
-            this.ctx.fillText(number,x+2,(y+height)-3);
-            this.ctx.fillText(number,(x+width-30),y+12);
-            this.ctx.fillText(number,x+width-30,(y+height)-3)
-        } else if (number === 'Reverse') {
-            this.ctx.fillText(number,x+2,y+12);
-            this.ctx.fillText(number,x+width-54,(y+height)-3)
-        } else if (number === 'PickColor') {
-            this.ctx.fillText(number,x+2,y+12);
-            this.ctx.fillText(number,x+width-62,(y+height)-3)
-        } else if (number === '+2' || number === '+4') {
-            this.ctx.fillText(number,x+2,y+15);
-            this.ctx.fillText(number,x+2,(y+height)-3);
-            this.ctx.fillText(number,(x+width-23),y+15);
-            this.ctx.fillText(number,x+width-23,(y+height)-3)
-        } else {
-            this.ctx.fillText(number,x+2,y+15);
-            this.ctx.fillText(number,(x+width-13),y+15);
-            this.ctx.fillText(number,x+2,(y+height)-3);
-            this.ctx.fillText(number,x+width-13,(y+height)-3)
+        let cardColor = currentCard[0].color
+        cardColor = this.correctColorTone(cardColor)
+        let cardLogo = currentCard[0].cardLogo
+        if (cardColor === 'multi') {
+            cardColor = "grey"
         }
-   
+        this.ctx.fillStyle = `${cardColor}`
+        this.ctx.fillRect(400, 200, 75,100);
+        this.drawACard(cardLogo,cardColor,400,200,75,100)
         this.ctx.restore()
     }
 
@@ -105,30 +60,20 @@ class UnoCanvas {
         for (let i=0;i<player.hand.length;i++) {
             let cardColor = player.hand[i].color
             let cardLogo = player.hand[i].cardLogo
-            // if (cardColor === 'multi') {
-            //     cardColor = "grey"
-            // }
             cardColor = this.correctColorTone(cardColor)
 
             if (player.playerNumber === 1) {
                 this.ctx.fillStyle = `${cardColor}`
             }
-            // this.ctx.fillRect(initX, Y, 75,height);
             if (player.playerNumber === 2) {
                 this.facedDownCard(initX,Y)
             }
-
-            // this.ctx.fillStyle = "black"
-            // if (player.playerNumber === 1) {
-            //     this.ctx.fillText(`${cardLogo}`, initX,Y);
-            // } 
             if (player.playerNumber === 1) {
                 this.drawACard(cardLogo,cardColor,initX,Y, 75,100)
             }
 
             initX += 100;
             if (i === 7 && player.playerNumber === 1) {
-                // this.ctx.globalCompositeOperation = "source-atop";
                 initX = 150;
                 Y = 350;
                 height = 40
@@ -150,28 +95,29 @@ class UnoCanvas {
         this.ctx.restore()
     }
 
-    mostrarCurrentCard(currentCard) {
+    drawACard(number,color,x,y,width,height) {
         this.ctx.save()
-        let cardColor = currentCard[0].color
-        cardColor = this.correctColorTone(cardColor)
-        let cardLogo = currentCard[0].cardLogo
-        if (cardColor === 'multi') {
-            cardColor = "grey"
-        }
-        this.ctx.fillStyle = `${cardColor}`
-        this.ctx.fillRect(400, 200, 75,100);
-        this.drawACard(cardLogo,cardColor,400,200,75,100)
+        this.ctx.fillStyle = color
+        this.ctx.fillRect(x,y,width,height);
+        this.drawCircle(x+width/2, y+height/2, 35, 0,'white')
 
-        // this.ctx.fillStyle = "black"
-        // this.ctx.fillText(`${cardLogo}`, 400,200);
+        this.ctx.fillStyle = color;
+        this.ctx.font = number === 'SKIP' ? "lighter italic 20px Arial" : number === 'Reverse' ? "lighter italic 15px Arial" : 
+                        number === 'PickColor' ? "lighter italic 15px Arial" : "lighter italic 30px Arial"
+        number === 'SKIP' ? this.ctx.fillText(number,x+13,y+57) : number === 'Reverse' ? this.ctx.fillText(number,x+10,y+53) : 
+        number === 'PickColor' ? this.ctx.fillText(number,x+5,y+55) : number === '+2' ? this.ctx.fillText(number,x+18,y+60) :
+        number === '+4' ? this.ctx.fillText(number,x+18,y+60) : this.ctx.fillText(number,x+width/2.8,y+height/1.7);
+
+        this.ctx.fillStyle = "white"
+        this.ctx.font = number === 'SKIP' ? "normal 12px Arial" : number === 'Reverse' ? "normal 14px Arial" : 
+                        number === 'PickColor' ? "normal 14px Arial" : "bold 17px Arial";
+
+        number === 'Reverse' ? this.writeCardInfo(number,x+2,y+12,x+width-54,(y+height)-3) : 
+        number === 'PickColor' ? this.writeCardInfo(number,x+2,y+12,x+width-62,(y+height)-3) :
+        number === 'SKIP' ? this.writeCardInfo(number,x+2,y+12,x+width-30,(y+height)-3,(x+width-30),y+12,x+2,(y+height)-3) :
+        number === '+2' || number === '+4' ?  this.writeCardInfo(number,x+2,y+15,x+width-23,(y+height)-3,x+2,(y+height)-3,(x+width-23),y+15) : 
+        this.writeCardInfo(number,x+2,y+15,x+width-13,(y+height)-3,(x+width-13),y+15,x+2,(y+height)-3)
         this.ctx.restore()
-    }
-
-    getCursorPosition(event) {
-        const rect = this.canvas.getBoundingClientRect()
-        const x = event.clientX - rect.left
-        const y = event.clientY - rect.top
-        return [x,y]
     }
 
     chooseAColor() {
@@ -194,6 +140,38 @@ class UnoCanvas {
                           originalColor === 'green' ? '#55aa55' :
                           originalColor === 'blue' ? '#5555ff' :
                           originalColor === 'yellow' ? '#ffaa00' : 'black';
+    }
+
+    writeCardInfo(cardNumber,xUpperLeft,yUpperLeft,xLowerRight,yLowerRight,xUpperRight,yUpperRight,xLowerLeft,yLowerLeft) {
+        if (cardNumber === 'Reverse' || cardNumber === 'PickColor') {
+            this.ctx.fillText(cardNumber,xUpperLeft,yUpperLeft);
+            this.ctx.fillText(cardNumber,xLowerRight,yLowerRight);
+        } else {
+            this.ctx.fillText(cardNumber,xUpperLeft,yUpperLeft);
+            this.ctx.fillText(cardNumber,xLowerRight,yLowerRight);
+            this.ctx.fillText(cardNumber,xUpperRight,yUpperRight);
+            this.ctx.fillText(cardNumber,xLowerLeft,yLowerLeft)
+        }
+    }
+
+    drawCircle(x,y,radius,startAngle,color) {
+        this.ctx.beginPath();
+        this.ctx.arc(x,y,radius,startAngle, 2 * Math.PI);
+        this.ctx.fillStyle = color
+        this.ctx.fill()
+        this.ctx.strokeStyle = color
+        this.ctx.stroke();
+    }
+
+    facedDownCard(x,y) {
+        this.ctx.save()
+        this.ctx.fillRect(x, y, 75, 100)
+        this.drawCircle(x+75/2, y+100/2, 35, 0,'lightgrey')
+        this.ctx.fillStyle = "grey"
+        this.ctx.font = "bold italic 17px Arial";
+        this.ctx.fillText('¡Hack',x+10,y+45);
+        this.ctx.fillText('Uno!',x+20,y+65);
+        this.ctx.restore()
     }
 
     weHaveAWinner(player1,player2,player) {

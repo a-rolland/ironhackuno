@@ -103,7 +103,7 @@ class UnoGame {
           this.player1.isSkipped = true;
           if (!this.checkFinished()) {
               this.player2.hasPlayedACard = false;
-              this.board.update(this.player1,this.player2,this.actualCard)
+              // this.board.update(this.player1,this.player2,this.actualCard)
               setTimeout(this.playerTwoMove.bind(this),1600)
           }
       } else {
@@ -180,7 +180,7 @@ class Player {
         this.hasPickedFromDeck = true;
     }
   }
-
+  // --> Old version with hasPlayed flag
   // play(pos,currentCard,deck) {
   //   if (typeof pos === 'string') {
   //     if (pos === 'deck') {
