@@ -9,12 +9,13 @@ class UnoGame {
       this.player2 = player2
       this.winner = null;
       this.paused = false;
-      this.audio = new Audio('media/Pictures_of_the_Floating_World_-_Waves.mp3');
+      this.audio = new Audio('media/bensound-thejazzpiano.mp3');
       this.cardSound = new Audio('media/zapsplat_leisure_playing_card_dealing_table_single_001_20443.mp3');
     }
 
     gameTimer() {
         document.getElementById('timer').innerHTML = `Time left : ${this.seconds}`;
+
         this.seconds--;
         if (this.seconds < 0) {
             this.gameExecuting = false
@@ -105,8 +106,9 @@ class UnoGame {
       
       if (this.player1.hasPlayedACard && (this.actualCard[0].cardType === 'wild' || this.actualCard[0].cardType === 'draw-4-wild')) {
         this.paused = true;
+        console.log(this.paused)
       }
-      this.board.update(this.player1,this.player2,this.actualCard)
+      this.board.update(this.player1,this.player2,this.actualCard,this.paused)
     }
 
     playerTwoMove() {

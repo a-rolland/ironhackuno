@@ -2,10 +2,10 @@ class UnoCanvas {
     constructor(){
         this.canvas = document.getElementById("uno");
         this.ctx = this.canvas.getContext('2d')
-        this.ctx.fillStyle = "white";
+        // this.ctx.fillStyle = "white";
         this.ctx.font = "15px Arial";
         this.ctx.fillRect(0,0,900,500)
-    }
+    }   
 
     getCursorPosition(event) {
         const rect = this.canvas.getBoundingClientRect()
@@ -14,7 +14,7 @@ class UnoCanvas {
         return [x,y]
     }
 
-    update(firstPlayer,secondPlayer,currentCard) {
+    update(firstPlayer,secondPlayer,currentCard,paused) {
         this.clearBoard()
         this.ctx.save()
         this.ctx.fillStyle = "black"
@@ -22,7 +22,9 @@ class UnoCanvas {
         this.mostrarCartasPlayer(firstPlayer)
         this.mostrarCartasPlayer(secondPlayer)
         this.mostrarCurrentCard(currentCard)
-        this.chooseAColor()
+        if (paused) {
+            this.chooseAColor()
+        }
         this.ctx.restore()
     }
 
@@ -104,8 +106,8 @@ class UnoCanvas {
         this.ctx.fillStyle = color;
         this.ctx.font = number === 'SKIP' ? "lighter italic 20px Arial" : number === 'Reverse' ? "lighter italic 15px Arial" : 
                         number === 'PickColor' ? "lighter italic 15px Arial" : "lighter italic 30px Arial"
-        number === 'SKIP' ? this.ctx.fillText(number,x+13,y+57) : number === 'Reverse' ? this.ctx.fillText(number,x+10,y+53) : 
-        number === 'PickColor' ? this.ctx.fillText(number,x+5,y+55) : number === '+2' ? this.ctx.fillText(number,x+18,y+60) :
+        number === 'SKIP' ? this.drawSkipSign(x,y,color) : number === 'Reverse' ? this.drawReverseSign(x,y,color) : 
+        number === 'PickColor' ? this.drawPickColorLogo(x,y) : number === '+2' ? this.ctx.fillText(number,x+18,y+60) :
         number === '+4' ? this.ctx.fillText(number,x+18,y+60) : this.ctx.fillText(number,x+width/2.8,y+height/1.7);
 
         this.ctx.fillStyle = "white"
@@ -122,6 +124,8 @@ class UnoCanvas {
 
     chooseAColor() {
         this.ctx.save()
+        this.ctx.font = "normal 20px Arial"
+        this.ctx.fillText("Choose a color !",555,170);
         this.ctx.fillStyle = '#ff5555' // red
         this.ctx.fillRect(575, 200, 45, 45);
         this.ctx.fillStyle = '#55aa55' // green
@@ -163,6 +167,57 @@ class UnoCanvas {
         this.ctx.stroke();
     }
 
+    drawSkipSign(x,y,color) {
+        // this.drawACard('',color,200,150,75,100)
+        this.ctx.save()
+        this.drawCircle(x+37.5, y+50, 25, 0, color)
+        this.drawCircle(x+37.5, y+50, 20,0, 'white')
+        this.ctx.beginPath()
+        this.ctx.strokeStyle = color
+        this.ctx.lineWidth = 5;
+        this.ctx.moveTo(x+22, y+70);
+        this.ctx.lineTo(x+50, y+33);
+        this.ctx.stroke();
+        this.ctx.restore();
+    }
+
+    drawReverseSign(x,y,color) {
+        this.ctx.save()
+        this.ctx.strokeStyle = color;
+        this.ctx.lineWidth = 5;
+        this.ctx.moveTo(x+28,y+40)
+        this.ctx.lineTo(x+28,y+65)
+        this.ctx.moveTo(x+47,y+35)
+        this.ctx.lineTo(x+47,y+60)
+        this.ctx.stroke()
+        this.ctx.beginPath()
+        this.ctx.moveTo(x+23,y+65)
+        this.ctx.lineTo(x+33,y+65)
+        this.ctx.lineTo(x+28,y+70)
+        this.ctx.closePath()
+        this.ctx.stroke()
+        this.ctx.beginPath()
+        this.ctx.moveTo(x+42,y+35)
+        this.ctx.lineTo(x+52,y+35)
+        this.ctx.lineTo(x+47,y+30)
+        this.ctx.closePath()
+        this.ctx.stroke()
+        this.ctx.restore()
+    }
+
+    drawPickColorLogo(x,y) {
+        this.ctx.save()
+        this.ctx.fillStyle = '#ff5555'
+        this.ctx.fillRect(x+17,y+28,19,19)
+        this.ctx.fillStyle = '#55aa55'
+        this.ctx.fillRect(x+38,y+35,19,19)
+        this.ctx.fillStyle = '#5555ff'
+        this.ctx.fillRect(x+17,y+49,19,19)
+        this.ctx.fillStyle = '#ffaa00'
+        this.ctx.fillRect(x+38,y+56,19,19)
+        this.ctx.restore()
+    }
+
     facedDownCard(x,y) {
         this.ctx.save()
         this.ctx.fillRect(x, y, 75, 100)
@@ -174,6 +229,12 @@ class UnoCanvas {
         this.ctx.restore()
     }
 
+    youAreSkipped() {
+        this.ctx.save()
+        this.ctx.fillText("Choose a color !",555,170);
+        this.ctx.restore()
+    }
+
     weHaveAWinner(player1,player2,player) {
         this.clearBoard()
         this.ctx.save()
@@ -182,10 +243,10 @@ class UnoCanvas {
         if (player1.hand.length > 0 && player2.hand.length > 0) {
             const totalPlayer1 = player1.hand.reduce((total, current) => total + current.value,0); 
             const totalPlayer2 = player2.hand.reduce((total, current) => total + current.value,0); 
-            totalPlayer1 > totalPlayer2 ? this.ctx.fillText(`Timeout ! Player 2 won !!! With ${totalPlayer2} points`, 75, this.canvas.height/2) :
+            totalPlayer1 > totalPlayer2 ? this.ctx.fillText(`Timeout ! You lost !!! With ${totalPlayer2} points`, 75, this.canvas.height/2) :
                                                  this.ctx.fillText(`Timeout ! You won !!! With ${totalPlayer1} points`, 75, this.canvas.height/2)   
         } else {
-            let message = player.playerNumber === 1 ? 'You won !!!' : 'Player 2 won !!!';
+            let message = player.playerNumber === 1 ? 'You won !!!' : 'You lost !!!';
             this.ctx.fillText(message, this.canvas.width/3,this.canvas.height/2);
         }
         this.ctx.restore()

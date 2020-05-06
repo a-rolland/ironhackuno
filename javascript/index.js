@@ -75,10 +75,10 @@ const cards = [
     { name: 'yellow-7', cardLogo: '7', cardType: 'seven', value: 7, color: 'yellow' },
     { name: 'yellow-8', cardLogo: '8', cardType: 'eight', value: 8, color: 'yellow' },
     { name: 'yellow-9', cardLogo: '9', cardType: 'nine', value: 9, color: 'yellow' },
-    { name: 'red-draw-2', cardLogo: '+2', cardType: 'draw-2', value: 20, color: 'red' },
-    { name: 'red-draw-2', cardLogo: '+2', cardType: 'draw-2', value: 20, color: 'red' },
-    { name: 'blue-draw-2', cardLogo: '+2', cardType: 'draw-2', value: 20, color: 'blue' },
-    { name: 'blue-draw-2', cardLogo: '+2', cardType: 'draw-2', value: 20, color: 'blue' },
+    // { name: 'red-draw-2', cardLogo: '+2', cardType: 'draw-2', value: 20, color: 'red' },
+    // { name: 'red-draw-2', cardLogo: '+2', cardType: 'draw-2', value: 20, color: 'red' },
+    // { name: 'blue-draw-2', cardLogo: '+2', cardType: 'draw-2', value: 20, color: 'blue' },
+    // { name: 'blue-draw-2', cardLogo: '+2', cardType: 'draw-2', value: 20, color: 'blue' },
     { name: 'green-draw-2', cardLogo: '+2', cardType: 'draw-2', value: 20, color: 'green' },
     { name: 'green-draw-2', cardLogo: '+2', cardType: 'draw-2', value: 20, color: 'green' },
     { name: 'yellow-draw-2', cardLogo: '+2', cardType: 'draw-2', value: 20, color: 'yellow' },
@@ -99,25 +99,26 @@ const cards = [
     { name: 'green-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'green' },
     { name: 'yellow-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'yellow' },
     { name: 'yellow-skip', cardLogo: 'SKIP', cardType: 'skip', value: 20, color: 'yellow' },
-    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
-    { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
+    // { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
     { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },
     { name: 'wild', cardLogo: 'PickColor', cardType: 'wild', value: 50, color: 'multi' },    
-    { name: 'draw-4-wild', cardLogo: '+4', cardType: 'draw-4-wild', value: 50, color: 'multi' },
-    { name: 'draw-4-wild', cardLogo: '+4', cardType: 'draw-4-wild', value: 50, color: 'multi' },
+    // { name: 'draw-4-wild', cardLogo: '+4', cardType: 'draw-4-wild', value: 50, color: 'multi' },
+    // { name: 'draw-4-wild', cardLogo: '+4', cardType: 'draw-4-wild', value: 50, color: 'multi' },
     { name: 'draw-4-wild', cardLogo: '+4', cardType: 'draw-4-wild', value: 50, color: 'multi' },
     { name: 'draw-4-wild', cardLogo: '+4', cardType: 'draw-4-wild', value: 50, color: 'multi' }
   ];
 
+
+
 let start = document.getElementById("start")
+let reload = document.getElementById("reload");
 start.onclick = function (event) {
 
     start.hidden = true;
-    let reload = document.getElementById("reload");
-    reload.style.visibility = "visible";
-    reload.onclick = function(event) {
-        window.location.reload()
-    }
+    reload.removeAttribute("hidden")
+    document.getElementById('timer').removeAttribute("hidden")
+
     let player1 = new Player(1)
     let player2 = new Player(2)
     let players = [player1,player2]
