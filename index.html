@@ -5,21 +5,38 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="styles/style.css">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     </head>
 
     <body>
         <div>
             <img id= logo src="images/logo_colored.png" alt="HackUno logo">
             <button id="start"><a href="#uno"> Let's play ! </a></button>
+            <button id="instructions"><a href="#uno"> Instructions </a></button>
             <button id="reload" hidden><a href="./index.html"> Reload </a></button>
         </div>
         <div id="main">
             <p id="timer" hidden> Time left : 60 </p>
-            <!-- <span> Rules : <br>
-                - Try to get rid of all your cards before the other player !
-                - If no one could do so, then the winner is the one with the lowest total of points
-            </span> -->
+            <div id="instruction-block" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2> Instructions </h2>
+                    <p> 
+                        Be the first to get rid of all your cards !.<br>
+                        No one could make it before the end of the countdown ?<br>
+                        In this case the winner is the one who has the LOWEST total of points !<br>
+                        Each card equals to a number of points : <br>
+                        <ul>
+                            <li> Card with a number : the number of points equals to the number which appears on the card </li>
+                            <li> Reverse : 20 points </li>
+                            <li> Skip  : 20 points </li>
+                            <li> +2 : 20 points </li>
+                            <li> +4 Pickcolor : 50 points </li>
+                            <li> Pickcolor : 50 points </li>
+                        </ul>
+                    </p>
+                    <h3> Have fun ! </h3>
+                </div>
+            </div>
             <canvas id="uno" height="500px" width="900px">
             </canvas>
         </div>

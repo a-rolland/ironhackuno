@@ -13,6 +13,8 @@ class UnoCanvas {
         this.img_reverse.src = ("images/logo_reverse.png");
         this.img_draw2 = new Image();
         this.img_draw2.src = ("images/logo_plus2.png");
+        this.img_draw4 = new Image();
+        this.img_draw4.src = ("images/logo_plus4.png");
         this.ctx.fillRect(0,0,900,500)
     }   
 
@@ -41,10 +43,11 @@ class UnoCanvas {
             if ((firstPlayer.isSkipped || secondPlayer.isSkipped) && currentCard[0].cardType === 'reverse') {
                 this.reverse(firstPlayer,secondPlayer)
             } else if (firstPlayer.isSkipped || secondPlayer.isSkipped) {
-                this.youAreSkipped(firstPlayer,secondPlayer)
+                this.youAreSkipped(firstPlayer)
             }
-            if ((firstPlayer.hasPlayedACard || secondPlayer.hasPlayedACard) && currentCard[0].cardType === 'draw-2') {
-                this.draw2(firstPlayer,secondPlayer)
+            if ((firstPlayer.hasPlayedACard || secondPlayer.hasPlayedACard) && 
+                (currentCard[0].cardType === 'draw-2' || currentCard[0].cardType === 'draw-4-wild')) {
+                this.draw(firstPlayer,currentCard,paused)
             }
         }
         this.ctx.restore()
@@ -151,6 +154,7 @@ class UnoCanvas {
     chooseAColor() {
         this.ctx.save()
         this.ctx.font = "normal 20px Arial"
+        this.ctx.fillStyle = "grey"
         this.ctx.fillText("Choose a color !",555,170);
         this.ctx.fillStyle = '#ff5555' // red
         this.ctx.fillRect(575, 200, 45, 45);
@@ -263,7 +267,7 @@ class UnoCanvas {
                        this.ctx.fillText(`Player 2 cannot play !`, 525, 200)             
     }
 
-    reverse(p1,p2) {
+    reverse(p1) {
         this.ctx.font = "20px Arial";
         this.ctx.fillStyle = "grey"
         this.ctx.drawImage(this.img_reverse,0,0,778,308,525,160,350,140)
@@ -271,12 +275,24 @@ class UnoCanvas {
                        this.ctx.fillText(`Player 2 cannot play !`, 525, 200)  
     }
 
-    draw2(p1,p2) {
+    draw(p1,currentCard,paused) {
         this.ctx.font = "20px Arial";
         this.ctx.fillStyle = "grey"
-        this.ctx.drawImage(this.img_draw2,0,0,347,195,525,160,313,176)
-        p1.hasPlayedACard ? this.ctx.fillText(`Player 2 draws 2 cards !`, 525, 180) :
-                            this.ctx.fillText(`You draw 2 cards !`, 525, 330)
+        if (currentCard[0].cardType === 'draw-4-wild') {
+            this.ctx.drawImage(this.img_draw4,0,0,332,203,125,170,219,135);
+            if (paused) {
+                this.ctx.fillText(`Player 2 draws 4 cards !`, 150, 190);
+            } else {
+                this.ctx.fillText(`You draw 4 cards !`, 150, 310)
+            }
+        } else {
+            this.ctx.drawImage(this.img_draw2,0,0,347,195,525,160,313,176)
+            if (p1.hasPlayedACard) {
+                this.ctx.fillText(`Player 2 draws 2 cards !`, 525, 180);
+            } else {
+                this.ctx.fillText(`You draw 2 cards !`, 525, 330)
+            }
+        }
     }
 
     youWon(time) {

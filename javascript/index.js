@@ -109,12 +109,26 @@ const cards = [
     { name: 'draw-4-wild', cardLogo: '+4', cardType: 'draw-4-wild', value: 50, color: 'multi' }
   ];
 
+let instructionsBtn = document.getElementById("instructions");
+let instructionBlock = document.getElementById("instruction-block");
+let span = document.getElementsByClassName("close")[0];
+instructionsBtn.onclick = function() {
+    instructionBlock.style.display = "block";
+}
+span.onclick = function() {
+    instructionBlock.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == instructionBlock) {
+      instructionBlock.style.display = "none";
+    }
+  }
 
-
-let start = document.getElementById("start")
+let start = document.getElementById("start");
 let reload = document.getElementById("reload");
 start.onclick = function (event) {
 
+    instructions.hidden = true;
     start.hidden = true;
     reload.removeAttribute("hidden")
     document.getElementById('timer').removeAttribute("hidden")
@@ -125,7 +139,7 @@ start.onclick = function (event) {
     let board = new UnoCanvas()
     let game = new UnoGame(cards,board,player1,player2)
 
-    // game.audio.play();
+    game.audio.play();
     game.gameExecuting = true;
     game.shuffleCards()
     game.dealCards(players)

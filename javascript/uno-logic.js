@@ -9,8 +9,14 @@ class UnoGame {
       this.player2 = player2
       this.winner = null;
       this.paused = false;
-      this.audio = new Audio('media/bensound-thejazzpiano.mp3');
-      this.cardSound = new Audio('media/zapsplat_leisure_playing_card_dealing_table_single_001_20443.mp3');
+      this.audio = new Audio('media/bensound-ukulele.mp3');
+      this.audio.volume = 0.2;
+      // this.cardSound = new Audio('media/zapsplat_leisure_playing_card_dealing_table_single_001_20443.mp3');
+      // this.cardSound.volume = 0.5;
+      this.win = new Audio('media/win.mp3');
+      this.win.volume = 0.6;
+      this.lose = new Audio('media/lose.mp3');
+      this.lose.volume = 0.6;
     }
 
     gameTimer() {
@@ -73,6 +79,7 @@ class UnoGame {
                       this.player2.hand.length === 0 ? this.player2 :
                       this.player1.points > this.player2.points ? this.player2 :
                       this.player1
+        this.winner === this.player1 ? this.win.play() : this.lose.play();
         this.audio.pause()
         return true
       }
@@ -107,7 +114,7 @@ class UnoGame {
     playerOneMove() {
       let position = this.board.getCursorPosition(event)
       let cardToBePlayed = this.player1.getCardPosition(position)
-      this.player1.play(cardToBePlayed,this.actualCard,this.cards,this.cardSound)
+      this.player1.play(cardToBePlayed,this.actualCard,this.cards)
       if ((this.player1.hasPlayedACard && this.actualCard[0].cardType === "skip") ||
           (this.player1.hasPlayedACard && this.actualCard[0].cardType === "reverse")) {
               this.player2.isSkipped = true;
@@ -122,7 +129,7 @@ class UnoGame {
     }
 
     playerTwoMove() {
-      this.player2.randomMove(this.actualCard,this.cards,this.cardSound)
+      this.player2.randomMove(this.actualCard,this.cards)
       this.checkDraw2(this.player2,this.player1)
       if (this.player2.hasPlayedACard && (this.actualCard[0].cardType === 'wild'|| this.actualCard[0].cardType === 'draw-4-wild')) {
         let colors = ['red','green','blue','yellow']
@@ -195,7 +202,7 @@ class Player {
     return false
   }
 
-  randomMove(currentCard,deck,sound) {
+  randomMove(currentCard,deck) {
     let canPlay = this.getPlayableCards(currentCard)
     if (canPlay) {
       let found = false;
@@ -205,29 +212,25 @@ class Player {
           currentCard.unshift(...this.hand.splice(rand,1));
           found = true
           this.hasPlayedACard = true;
-          // sound.play()
         }
       }
     } else {
         this.pickCards(1,deck)
         this.hasPickedFromDeck = true;
-        // sound.play()
     }
   }
 
-  play(pos,currentCard,deck,sound) {
+  play(pos,currentCard,deck) {
     if (typeof pos === 'string') {
       if (pos === 'deck') {
         console.log('Deck, you picked one card !')
         this.pickCards(1,deck)
         this.hasPickedFromDeck = true;
-        // sound.play()
       }
     } else {
       if (this.isPlayable(this.hand[pos],currentCard[0])) {
         currentCard.unshift(...this.hand.splice(pos,1))
         this.hasPlayedACard = true;
-        // sound.play()
       }
     }
   }
