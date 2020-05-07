@@ -1,6 +1,6 @@
 # HackUno
 
-![HackUno Logo](/images/logo.png)
+![HackUno Logo](/images/logo_colored.png)
 ​
 ## Descripción
 
