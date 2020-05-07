@@ -1,4 +1,6 @@
-# IronhackUno
+# HackUno
+
+![HackUno Logo](/images/logo.png)
 ​
 ## Descripción
 
