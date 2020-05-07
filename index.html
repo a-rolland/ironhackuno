@@ -9,11 +9,17 @@
     </head>
 
     <body>
-        <div style="text-align:center;">
+        <div>
             <img id= logo src="images/logo_colored.png" alt="HackUno logo">
-            <button id="start"><a href="#uno"> Let's Play ! </a></button>
+            <button id="start"><a href="#uno"> Let's play ! </a></button>
             <button id="reload" hidden><a href="./index.html"> Reload </a></button>
+        </div>
+        <div id="main">
             <p id="timer" hidden> Time left : 60 </p>
+            <!-- <span> Rules : <br>
+                - Try to get rid of all your cards before the other player !
+                - If no one could do so, then the winner is the one with the lowest total of points
+            </span> -->
             <canvas id="uno" height="500px" width="900px">
             </canvas>
         </div>

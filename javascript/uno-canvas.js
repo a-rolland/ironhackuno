@@ -2,8 +2,17 @@ class UnoCanvas {
     constructor(){
         this.canvas = document.getElementById("uno");
         this.ctx = this.canvas.getContext('2d')
-        // this.ctx.fillStyle = "white";
         this.ctx.font = "15px Arial";
+        this.img_win = new Image();
+        this.img_win.src = ("images/logo_won.png");
+        this.img_lost = new Image();
+        this.img_lost.src = ("images/logo_lost.png");
+        this.img_skipped = new Image();
+        this.img_skipped.src = ("images/logo_skipped.png");
+        this.img_reverse = new Image();
+        this.img_reverse.src = ("images/logo_reverse.png");
+        this.img_draw2 = new Image();
+        this.img_draw2.src = ("images/logo_plus2.png");
         this.ctx.fillRect(0,0,900,500)
     }   
 
@@ -14,18 +23,35 @@ class UnoCanvas {
         return [x,y]
     }
 
-    update(firstPlayer,secondPlayer,currentCard,paused) {
+    update(firstPlayer,secondPlayer,currentCard,paused,winner,time) {
         this.clearBoard()
         this.ctx.save()
         this.ctx.fillStyle = "black"
-        this.mostrarDeck()
-        this.mostrarCartasPlayer(firstPlayer)
-        this.mostrarCartasPlayer(secondPlayer)
-        this.mostrarCurrentCard(currentCard)
-        if (paused) {
-            this.chooseAColor()
+        if (winner) {
+            time <= 0 ? this.displayTimeOut() : null
+            winner.playerNumber === 1 ? this.youWon(time) : this.youLost(firstPlayer,secondPlayer,time)  
+        } else {
+            this.showDeck()
+            this.showPlayerCards(firstPlayer)
+            this.showPlayerCards(secondPlayer)
+            this.showCurrentCard(currentCard)
+            if (paused) {
+                this.chooseAColor()
+            }
+            if ((firstPlayer.isSkipped || secondPlayer.isSkipped) && currentCard[0].cardType === 'reverse') {
+                this.reverse(firstPlayer,secondPlayer)
+            } else if (firstPlayer.isSkipped || secondPlayer.isSkipped) {
+                this.youAreSkipped(firstPlayer,secondPlayer)
+            }
+            if ((firstPlayer.hasPlayedACard || secondPlayer.hasPlayedACard) && currentCard[0].cardType === 'draw-2') {
+                this.draw2(firstPlayer,secondPlayer)
+            }
         }
         this.ctx.restore()
+    }
+
+    displayTimeOut() {
+        this.ctx.drawImage(this.img_win,0,0,787,201,60,60,787,201)
     }
 
     clearBoard() {
@@ -33,11 +59,11 @@ class UnoCanvas {
         this.ctx.fillRect(0,0,900,500)
     }
 
-    mostrarDeck() {
+    showDeck() {
         this.facedDownCard(25, 200, 75, 100)
     }
 
-    mostrarCurrentCard(currentCard) {
+    showCurrentCard(currentCard) {
         this.ctx.save()
         let cardColor = currentCard[0].color
         cardColor = this.correctColorTone(cardColor)
@@ -51,7 +77,7 @@ class UnoCanvas {
         this.ctx.restore()
     }
 
-    mostrarCartasPlayer(player) {
+    showPlayerCards(player) {
         let initX = 100
         let Y = 400
         let height = 100
@@ -229,26 +255,71 @@ class UnoCanvas {
         this.ctx.restore()
     }
 
-    youAreSkipped() {
-        this.ctx.save()
-        this.ctx.fillText("Choose a color !",555,170);
-        this.ctx.restore()
+    youAreSkipped(p1,p2) {
+        this.ctx.drawImage(this.img_skipped,0,0,686,242,525,180,341,111)
+        this.ctx.font = "20px Arial";
+        this.ctx.fillStyle = "grey"
+        p1.isSkipped ? this.ctx.fillText(`You cannot play !`, 525, 310) :
+                       this.ctx.fillText(`Player 2 cannot play !`, 525, 200)             
     }
 
-    weHaveAWinner(player1,player2,player) {
-        this.clearBoard()
+    reverse(p1,p2) {
+        this.ctx.font = "20px Arial";
+        this.ctx.fillStyle = "grey"
+        this.ctx.drawImage(this.img_reverse,0,0,778,308,525,160,350,140)
+        p1.isSkipped ? this.ctx.fillText(`You cannot play !`, 525, 310) :
+                       this.ctx.fillText(`Player 2 cannot play !`, 525, 200)  
+    }
+
+    draw2(p1,p2) {
+        this.ctx.font = "20px Arial";
+        this.ctx.fillStyle = "grey"
+        this.ctx.drawImage(this.img_draw2,0,0,347,195,525,160,313,176)
+        p1.hasPlayedACard ? this.ctx.fillText(`Player 2 draws 2 cards !`, 525, 180) :
+                            this.ctx.fillText(`You draw 2 cards !`, 525, 330)
+    }
+
+    youWon(time) {
+        time <= 0 ? this.ctx.drawImage(this.img_win,0,202,787,402,60,240,787,402) :
+                    this.ctx.drawImage(this.img_win,0,202,787,402,60,100,787,402)
+    }
+
+    youLost(p1,p2,time) {
+        time <= 0 ? this.ctx.drawImage(this.img_lost,0,202,792,380,60,240,792,380) :
+                    this.ctx.drawImage(this.img_lost,0,202,792,380,60,100,792,380)
         this.ctx.save()
-        this.ctx.fillStyle = "black"
-        this.ctx.font = "40px Arial";
-        if (player1.hand.length > 0 && player2.hand.length > 0) {
-            const totalPlayer1 = player1.hand.reduce((total, current) => total + current.value,0); 
-            const totalPlayer2 = player2.hand.reduce((total, current) => total + current.value,0); 
-            totalPlayer1 > totalPlayer2 ? this.ctx.fillText(`Timeout ! You lost !!! With ${totalPlayer2} points`, 75, this.canvas.height/2) :
-                                                 this.ctx.fillText(`Timeout ! You won !!! With ${totalPlayer1} points`, 75, this.canvas.height/2)   
-        } else {
-            let message = player.playerNumber === 1 ? 'You won !!!' : 'You lost !!!';
-            this.ctx.fillText(message, this.canvas.width/3,this.canvas.height/2);
-        }
+        this.ctx.font = "30px Arial";
+        this.ctx.fillStyle = "grey"
+        time <= 0 ? this.ctx.fillText(`You had ${p1.points} ${p1.points > 1 ? `points` : `point`} and Player 2 had`
+                                     +` ${p2.points} ${p2.points > 1 ? `points` : `point`}.`, 170, 460) : null
         this.ctx.restore()
     }
 }
+
+
+
+
+
+
+
+
+
+
+// Backup code
+
+// weHaveAWinner(player1,player2,player) {
+//     this.clearBoard()
+//     this.ctx.save()
+//     this.ctx.fillStyle = "black"
+//     this.ctx.font = "40px Arial";
+//     if (player1.hand.length > 0 && player2.hand.length > 0) {
+//         const totalPlayer1 = player1.hand.reduce((total, current) => total + current.value,0); 
+//         const totalPlayer2 = player2.hand.reduce((total, current) => total + current.value,0); 
+//         totalPlayer1 > totalPlayer2 ? this.ctx.fillText(`Timeout ! You lost !!! With ${totalPlayer1} points`, 75, this.canvas.height/2) :
+//                                              this.ctx.fillText(`Timeout ! You won !!! With ${totalPlayer1} points`, 75, this.canvas.height/2)   
+//     } else {
+//         let message = player.playerNumber === 1 ? 'You won !!!' : 'You lost !!!';
+//         this.ctx.fillText(message, this.canvas.width/3,this.canvas.height/2);
+//     }
+//     this.ctx.restore()
+// }

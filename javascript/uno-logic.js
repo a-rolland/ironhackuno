@@ -20,8 +20,9 @@ class UnoGame {
         if (this.seconds < 0) {
             this.gameExecuting = false
             this.audio.pause()
-            this.board.weHaveAWinner(this.player1,this.player2)
-        }
+            this.checkFinished(this.player1,this.player2)
+            this.board.update(this.player1,this.player2,this.actualCard,this.paused,this.winner,this.seconds)
+          }
         else {
           let winner = this.checkFinished(this.player1,this.player2)
           if (!winner) {
@@ -50,7 +51,11 @@ class UnoGame {
     }
 
     getCurrentCard() {
-      return this.cards.splice(this.cards.length-1,1)
+      let card = this.cards.splice(this.cards.length-1,1)
+      while (card[0].cardType === 'wild' || card[0].cardType === 'draw-4-wild') {
+        card = this.cards.splice(this.cards.length-1,1)
+      }
+      return card
     }
 
     checkCurrentCardDeck(currentCardDeck) {
@@ -62,7 +67,12 @@ class UnoGame {
 
     checkFinished() {
       if (this.player1.hand.length === 0 || this.player2.hand.length === 0 || !this.gameExecuting) {
-        this.winner = this.player1.hand.length === 0 ? this.player1 : this.player2
+        this.player1.calculatePoints()
+        this.player2.calculatePoints()
+        this.winner = this.player1.hand.length === 0 ? this.player1 : 
+                      this.player2.hand.length === 0 ? this.player2 :
+                      this.player1.points > this.player2.points ? this.player2 :
+                      this.player1
         this.audio.pause()
         return true
       }
@@ -140,7 +150,7 @@ class UnoGame {
           this.player2.isPlaying = false;
       }.bind(this),800)
       if (this.checkFinished()) {
-          this.board.weHaveAWinner(this.player1,this.player2,this.winner)
+        this.board.update(this.player1,this.player2,this.actualCard,this.paused,this.winner,this.seconds)
       }
   }
 }
@@ -153,6 +163,13 @@ class Player {
     this.hasPickedFromDeck = false;
     this.isPlaying = false;
     this.isSkipped = false;
+    this.points = null;
+  }
+
+  calculatePoints() {
+    if(this.hand) {
+      this.points = this.hand.reduce((total, current) => total + current.value,0)
+    }
   }
 
   pickCards(quantity,deck) {
