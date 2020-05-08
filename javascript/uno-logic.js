@@ -11,8 +11,6 @@ class UnoGame {
       this.paused = false;
       this.audio = new Audio('media/bensound-ukulele.mp3');
       this.audio.volume = 0.2;
-      // this.cardSound = new Audio('media/zapsplat_leisure_playing_card_dealing_table_single_001_20443.mp3');
-      // this.cardSound.volume = 0.5;
       this.win = new Audio('media/win.mp3');
       this.win.volume = 0.6;
       this.lose = new Audio('media/lose.mp3');
@@ -21,7 +19,6 @@ class UnoGame {
 
     gameTimer() {
         document.getElementById('timer').innerHTML = `Time left : ${this.seconds}`;
-
         this.seconds--;
         if (this.seconds < 0) {
             this.gameExecuting = false
@@ -30,8 +27,7 @@ class UnoGame {
             this.board.update(this.player1,this.player2,this.actualCard,this.paused,this.winner,this.seconds)
           }
         else {
-          let winner = this.checkFinished(this.player1,this.player2)
-          if (!winner) {
+          if (!this.checkFinished(this.player1,this.player2)) {
             setTimeout(this.gameTimer.bind(this), 1000);
           }
         }
@@ -61,11 +57,11 @@ class UnoGame {
       while (card[0].cardType === 'wild' || card[0].cardType === 'draw-4-wild') {
         card = this.cards.splice(this.cards.length-1,1)
       }
-      return card
+      this.actualCard = card
     }
 
     checkCurrentCardDeck(currentCardDeck) {
-      if (currentCardDeck.length >30) {
+      if (currentCardDeck.length >50) {
         this.cards.unshift(...currentCardDeck.splice(1,currentCardDeck.length-1))
         this.shuffleCards(this.cards)
       }
@@ -87,6 +83,7 @@ class UnoGame {
     }
 
     pickColor() {
+      // Make sure that the user clicked on a correct color - if not, nothing will happen
       let position = this.board.getCursorPosition(event)
       let cardToBePlayed = this.player1.getCardPosition(position)
       if (cardToBePlayed === 'red' || cardToBePlayed === 'green' || cardToBePlayed === 'blue' || cardToBePlayed === 'yellow') {
@@ -119,17 +116,18 @@ class UnoGame {
           (this.player1.hasPlayedACard && this.actualCard[0].cardType === "reverse")) {
               this.player2.isSkipped = true;
           }
+      // If the user played a "+2" card, then player2 will draw 2 cards from the deck automatically
       this.checkDraw2(this.player1,this.player2)
-      
+      // Put the game is a "paused" mode in case the user has to select a color
       if (this.player1.hasPlayedACard && (this.actualCard[0].cardType === 'wild' || this.actualCard[0].cardType === 'draw-4-wild')) {
         this.paused = true;
-        console.log(this.paused)
       }
       this.board.update(this.player1,this.player2,this.actualCard,this.paused)
     }
 
     playerTwoMove() {
-      this.player2.randomMove(this.actualCard,this.cards)
+      this.player2.playRandom(this.actualCard,this.cards)
+      // If player2 played a "+2" card, then the user will draw 2 cards from the deck automatically
       this.checkDraw2(this.player2,this.player1)
       if (this.player2.hasPlayedACard && (this.actualCard[0].cardType === 'wild'|| this.actualCard[0].cardType === 'draw-4-wild')) {
         let colors = ['red','green','blue','yellow']
@@ -139,17 +137,20 @@ class UnoGame {
           this.player1.pickCards(4,this.cards)
         }
       }
+      // While player2 plays a "skip" or a "reverse" card, the user will be skipped
+      // And a new playerTwoMove will be triggered
       if ((this.player2.hasPlayedACard && this.actualCard[0].cardType === "skip") || 
           (this.player2.hasPlayedACard && this.actualCard[0].cardType === "reverse")) {
           this.player1.isSkipped = true;
           if (!this.checkFinished()) {
               this.player2.hasPlayedACard = false;
-              // this.board.update(this.player1,this.player2,this.actualCard)
               setTimeout(this.playerTwoMove.bind(this),1600)
           }
       } else {
           this.player1.isSkipped = false
       }
+      // Player2 card will be shown with a delay of 0.8 second, in order to be able to see the movement
+      // During this brief moment, the user cannot play 
       setTimeout(function(){
           if (!this.checkFinished()) {
               this.board.update(this.player1,this.player2,this.actualCard)
@@ -159,6 +160,12 @@ class UnoGame {
       if (this.checkFinished()) {
         this.board.update(this.player1,this.player2,this.actualCard,this.paused,this.winner,this.seconds)
       }
+  }
+
+  resetPlayersStatus() {
+    this.player1.hasPlayedACard = false;
+    this.player1.hasPickedFromDeck = false;
+    this.player2.isSkipped = false;
   }
 }
 
@@ -184,6 +191,7 @@ class Player {
   }
 
   isPlayable(card,currentCard) {
+    // Check if a card is playable or not
     if (card.cardType === currentCard.cardType || 
       card.color === currentCard.color || 
       card.cardType === 'wild' || 
@@ -193,7 +201,9 @@ class Player {
     return false
   }
 
-  getPlayableCards(currentCard) {
+  canPlay(currentCard) {
+    // Check if a player has any option to play
+    // This method is used for random actions
     for (let i=0;i<this.hand.length;i++) {
         if (this.isPlayable(this.hand[i],currentCard[0])) {
             return true
@@ -202,10 +212,12 @@ class Player {
     return false
   }
 
-  randomMove(currentCard,deck) {
-    let canPlay = this.getPlayableCards(currentCard)
-    if (canPlay) {
+  playRandom(currentCard,deck) {
+    if (this.canPlay(currentCard)) {
       let found = false;
+      // We randomly select a card in player2's hand
+      // If it's "playable", then we play it
+      // If not, we start again until we find one
       while (!found) {
         let rand = Math.floor(Math.random() * this.hand.length)
         if (this.isPlayable(this.hand[rand],currentCard[0])) {
@@ -223,7 +235,6 @@ class Player {
   play(pos,currentCard,deck) {
     if (typeof pos === 'string') {
       if (pos === 'deck') {
-        console.log('Deck, you picked one card !')
         this.pickCards(1,deck)
         this.hasPickedFromDeck = true;
       }
@@ -236,6 +247,7 @@ class Player {
   }
 
   getCardPosition(position) {
+    // Any click on the canvas will return a value that we can use
     let x = position[0];
     let y = position[1];
 

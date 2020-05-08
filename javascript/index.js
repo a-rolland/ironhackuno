@@ -1,3 +1,4 @@
+ // Some cards are commented in order to avoid getting too many jokers
 const cards = [
     { name: 'red-0', cardLogo: '0', cardType: 'zero', value: 0, color: 'red' },
     { name: 'red-1', cardLogo: '1', cardType: 'one', value: 1, color: 'red' },
@@ -109,6 +110,7 @@ const cards = [
     { name: 'draw-4-wild', cardLogo: '+4', cardType: 'draw-4-wild', value: 50, color: 'multi' }
   ];
 
+// Instructions block on click
 let instructionsBtn = document.getElementById("instructions");
 let instructionBlock = document.getElementById("instruction-block");
 let span = document.getElementsByClassName("close")[0];
@@ -128,6 +130,8 @@ let start = document.getElementById("start");
 let reload = document.getElementById("reload");
 start.onclick = function (event) {
 
+    // When the user starts playing, the instructions button will disappear
+    // The start button will be replaced by a "reload" button
     instructions.hidden = true;
     start.hidden = true;
     reload.removeAttribute("hidden")
@@ -143,13 +147,14 @@ start.onclick = function (event) {
     game.gameExecuting = true;
     game.shuffleCards()
     game.dealCards(players)
-    game.actualCard = game.getCurrentCard()
+    game.getCurrentCard()
     board.update(player1,player2,game.actualCard)
     game.gameTimer()
 
+    // Each round starts by a user click
     document.getElementById('uno').addEventListener('click', function(event) {
-
         if (!game.checkFinished() && (!player2.isPlaying || game.paused)) {
+            // User's turn
             if (!player1.isSkipped) {
                 if (game.paused) {
                     let color = game.pickColor()
@@ -161,18 +166,16 @@ start.onclick = function (event) {
                     game.playerOneMove()
                 }
             }
+            // Player2's turn
             player2.isPlaying = true
-
             if (!player2.isSkipped && (player1.hasPlayedACard || player1.hasPickedFromDeck) && !game.paused) {
                 game.playerTwoMove()
             } else {
                 player2.isPlaying = false;
             }  
-
-            player1.hasPlayedACard = false;
-            player1.hasPickedFromDeck = false;
-            player2.isSkipped = false;
-
+            game.resetPlayersStatus()
+            // If current card array is getting too big, we just keep the first card and put the rest of the cards back 
+            // to the deck, and then shuffle the deck again
             game.checkCurrentCardDeck(game.actualCard)
             if (game.checkFinished()) {
                 board.update(player1,player2,game.actualCard,game.paused,game.winner)
@@ -180,40 +183,3 @@ start.onclick = function (event) {
         }
     })
 }
-
-
-
-
-
-
-
-// Backup block
-
-// playerTwoMove()
-
-// Ver como poner esta funcion dentro de la Clase Game (problema con Closure)
-// function playerTwoMove() {
-//     player2.randomMove(game.actualCard,game.cards)
-//     game.checkDraw2(player2,player1)
-//     if ((player2.hasPlayedACard && game.actualCard[0].cardType === "skip") || 
-//         (player2.hasPlayedACard && game.actualCard[0].cardType === "reverse")) {
-//         player1.isSkipped = true;
-//         if (!game.checkFinished()) {
-//             player2.hasPlayedACard = false;
-//             board.update(player1,player2,game.actualCard)
-//             setTimeout(playerTwoMove,1600)
-//         }
-//     } else {
-//         player1.isSkipped = false
-//     }
-//     setTimeout(function(){
-//         if (!game.checkFinished()) {
-//             board.update(player1,player2,game.actualCard)
-//         }
-//         player2.isPlaying = false;
-//     },800)
-//     if (game.checkFinished()) {
-//         board.weHaveAWinner(player1,player2,game.winner)
-//     }
-// }
-

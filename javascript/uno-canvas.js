@@ -30,31 +30,18 @@ class UnoCanvas {
         this.ctx.save()
         this.ctx.fillStyle = "black"
         if (winner) {
-            time <= 0 ? this.displayTimeOut() : null
+            if (time <= 0) {
+                this.displayTimeOut()
+            }
             winner.playerNumber === 1 ? this.youWon(time) : this.youLost(firstPlayer,secondPlayer,time)  
         } else {
             this.showDeck()
             this.showPlayerCards(firstPlayer)
             this.showPlayerCards(secondPlayer)
             this.showCurrentCard(currentCard)
-            if (paused) {
-                this.chooseAColor()
-            }
-            if ((firstPlayer.isSkipped || secondPlayer.isSkipped) && currentCard[0].cardType === 'reverse') {
-                this.reverse(firstPlayer,secondPlayer)
-            } else if (firstPlayer.isSkipped || secondPlayer.isSkipped) {
-                this.youAreSkipped(firstPlayer)
-            }
-            if ((firstPlayer.hasPlayedACard || secondPlayer.hasPlayedACard) && 
-                (currentCard[0].cardType === 'draw-2' || currentCard[0].cardType === 'draw-4-wild')) {
-                this.draw(firstPlayer,currentCard,paused)
-            }
+            this.checkAnimations(firstPlayer,secondPlayer,currentCard,paused)
         }
         this.ctx.restore()
-    }
-
-    displayTimeOut() {
-        this.ctx.drawImage(this.img_win,0,0,787,201,60,60,787,201)
     }
 
     clearBoard() {
@@ -83,7 +70,6 @@ class UnoCanvas {
     showPlayerCards(player) {
         let initX = 100
         let Y = 400
-        let height = 100
         if (player.playerNumber === 2) {
             Y = 0
         }
@@ -107,12 +93,10 @@ class UnoCanvas {
             if (i === 7 && player.playerNumber === 1) {
                 initX = 150;
                 Y = 350;
-                height = 40
             }
             if (i === 14 && player.playerNumber === 1) {
                 initX = 200;
                 Y = 325;
-                height = 10
             }
             if (i === 7 && player.playerNumber === 2) {
                 initX = 150;
@@ -133,15 +117,17 @@ class UnoCanvas {
         this.drawCircle(x+width/2, y+height/2, 35, 0,'white')
 
         this.ctx.fillStyle = color;
-        this.ctx.font = number === 'SKIP' ? "lighter italic 20px Arial" : number === 'Reverse' ? "lighter italic 15px Arial" : 
-                        number === 'PickColor' ? "lighter italic 15px Arial" : "lighter italic 30px Arial"
-        number === 'SKIP' ? this.drawSkipSign(x,y,color) : number === 'Reverse' ? this.drawReverseSign(x,y,color) : 
-        number === 'PickColor' ? this.drawPickColorLogo(x,y) : number === '+2' ? this.ctx.fillText(number,x+18,y+60) :
-        number === '+4' ? this.ctx.fillText(number,x+18,y+60) : this.ctx.fillText(number,x+width/2.8,y+height/1.7);
+        this.ctx.font = number === 'PickColor' ? "lighter italic 15px Arial" : "lighter italic 30px Arial"
+                        number === 'SKIP' ? this.drawSkipSign(x,y,color) : 
+                        number === 'Reverse' ? this.drawReverseSign(x,y,color) : 
+                        number === 'PickColor' ? this.drawPickColorLogo(x,y) : 
+                        number === '+2' || number === '+4' ? this.ctx.fillText(number,x+18,y+60) : 
+                        this.ctx.fillText(number,x+width/2.8,y+height/1.7);
 
         this.ctx.fillStyle = "white"
-        this.ctx.font = number === 'SKIP' ? "normal 12px Arial" : number === 'Reverse' ? "normal 14px Arial" : 
-                        number === 'PickColor' ? "normal 14px Arial" : "bold 17px Arial";
+        this.ctx.font = number === 'SKIP' ? "normal 12px Arial" :
+                        number === 'Reverse' || number === 'PickColor' ? "normal 14px Arial" :
+                        "bold 17px Arial";
 
         number === 'Reverse' ? this.writeCardInfo(number,x+2,y+12,x+width-54,(y+height)-3) : 
         number === 'PickColor' ? this.writeCardInfo(number,x+2,y+12,x+width-62,(y+height)-3) :
@@ -151,29 +137,12 @@ class UnoCanvas {
         this.ctx.restore()
     }
 
-    chooseAColor() {
-        this.ctx.save()
-        this.ctx.font = "normal 20px Arial"
-        this.ctx.fillStyle = "grey"
-        this.ctx.fillText("Choose a color !",555,170);
-        this.ctx.fillStyle = '#ff5555' // red
-        this.ctx.fillRect(575, 200, 45, 45);
-        this.ctx.fillStyle = '#55aa55' // green
-        this.ctx.fillRect(630, 200, 45,45);
-        this.ctx.fillStyle = '#5555ff' // blue
-        this.ctx.fillRect(575, 255, 45,45);
-        this.ctx.fillStyle = '#ffaa00' // yellow
-        this.ctx.fillRect(630, 255, 45,45);
-        this.ctx.restore()
-    }
-
     correctColorTone(originalColor) {
-        let newColor = null;
-        return newColor = originalColor === 'multi' ? 'grey' :
-                          originalColor === 'red' ? '#ff5555' :
-                          originalColor === 'green' ? '#55aa55' :
-                          originalColor === 'blue' ? '#5555ff' :
-                          originalColor === 'yellow' ? '#ffaa00' : 'black';
+        return originalColor === 'multi' ? 'grey' :
+               originalColor === 'red' ? '#ff5555' :
+               originalColor === 'green' ? '#55aa55' :
+               originalColor === 'blue' ? '#5555ff' :
+               originalColor === 'yellow' ? '#ffaa00' : 'black';
     }
 
     writeCardInfo(cardNumber,xUpperLeft,yUpperLeft,xLowerRight,yLowerRight,xUpperRight,yUpperRight,xLowerLeft,yLowerLeft) {
@@ -198,7 +167,6 @@ class UnoCanvas {
     }
 
     drawSkipSign(x,y,color) {
-        // this.drawACard('',color,200,150,75,100)
         this.ctx.save()
         this.drawCircle(x+37.5, y+50, 25, 0, color)
         this.drawCircle(x+37.5, y+50, 20,0, 'white')
@@ -259,42 +227,64 @@ class UnoCanvas {
         this.ctx.restore()
     }
 
-    youAreSkipped(p1,p2) {
-        this.ctx.drawImage(this.img_skipped,0,0,686,242,525,180,341,111)
-        this.ctx.font = "20px Arial";
+    chooseAColor() {
+        this.ctx.save()
+        this.ctx.font = "normal 20px Arial"
         this.ctx.fillStyle = "grey"
-        p1.isSkipped ? this.ctx.fillText(`You cannot play !`, 525, 310) :
-                       this.ctx.fillText(`Player 2 cannot play !`, 525, 200)             
+        this.ctx.fillText("Choose a color !",555,170);
+        this.ctx.fillStyle = '#ff5555' // red
+        this.ctx.fillRect(575, 200, 45, 45);
+        this.ctx.fillStyle = '#55aa55' // green
+        this.ctx.fillRect(630, 200, 45,45);
+        this.ctx.fillStyle = '#5555ff' // blue
+        this.ctx.fillRect(575, 255, 45,45);
+        this.ctx.fillStyle = '#ffaa00' // yellow
+        this.ctx.fillRect(630, 255, 45,45);
+        this.ctx.restore()
     }
 
-    reverse(p1) {
+    skippedOrReverse(p1,currentCard) {
+        // Animation shown in case a "skipped" or a "reverse" card has been played
         this.ctx.font = "20px Arial";
         this.ctx.fillStyle = "grey"
-        this.ctx.drawImage(this.img_reverse,0,0,778,308,525,160,350,140)
+        currentCard[0].cardType === 'reverse' ? this.ctx.drawImage(this.img_reverse,0,0,778,308,525,160,350,140) :
+                                                this.ctx.drawImage(this.img_skipped,0,0,686,242,525,180,341,111)
         p1.isSkipped ? this.ctx.fillText(`You cannot play !`, 525, 310) :
                        this.ctx.fillText(`Player 2 cannot play !`, 525, 200)  
     }
 
     draw(p1,currentCard,paused) {
+        // Animation shown in case a "+2" (draw 2) or a "+4" (draw 4) card has been played
         this.ctx.font = "20px Arial";
         this.ctx.fillStyle = "grey"
         if (currentCard[0].cardType === 'draw-4-wild') {
             this.ctx.drawImage(this.img_draw4,0,0,332,203,125,170,219,135);
-            if (paused) {
-                this.ctx.fillText(`Player 2 draws 4 cards !`, 150, 190);
-            } else {
-                this.ctx.fillText(`You draw 4 cards !`, 150, 310)
-            }
+            paused ? this.ctx.fillText(`Player 2 draws 4 cards !`, 150, 190) :
+                    this.ctx.fillText(`You draw 4 cards !`, 150, 310)
         } else {
             this.ctx.drawImage(this.img_draw2,0,0,347,195,525,160,313,176)
-            if (p1.hasPlayedACard) {
-                this.ctx.fillText(`Player 2 draws 2 cards !`, 525, 180);
-            } else {
-                this.ctx.fillText(`You draw 2 cards !`, 525, 330)
-            }
+            p1.hasPlayedACard ? this.ctx.fillText(`Player 2 draws 2 cards !`, 525, 180) :
+                                this.ctx.fillText(`You draw 2 cards !`, 525, 330)
         }
     }
 
+    checkAnimations(firstPlayer,secondPlayer,currentCard,paused) {
+        if (paused) {
+            this.chooseAColor()
+        }
+        if (firstPlayer.isSkipped || secondPlayer.isSkipped) {
+            this.skippedOrReverse(firstPlayer,currentCard)
+        }
+        if ((firstPlayer.hasPlayedACard || secondPlayer.hasPlayedACard) && 
+            (currentCard[0].cardType === 'draw-2' || currentCard[0].cardType === 'draw-4-wild')) {
+            this.draw(firstPlayer,currentCard,paused)
+        }
+    }
+
+    displayTimeOut() {
+        this.ctx.drawImage(this.img_win,0,0,787,201,60,60,787,201)
+    }
+    
     youWon(time) {
         time <= 0 ? this.ctx.drawImage(this.img_win,0,202,787,402,60,240,787,402) :
                     this.ctx.drawImage(this.img_win,0,202,787,402,60,100,787,402)
@@ -306,36 +296,10 @@ class UnoCanvas {
         this.ctx.save()
         this.ctx.font = "30px Arial";
         this.ctx.fillStyle = "grey"
-        time <= 0 ? this.ctx.fillText(`You had ${p1.points} ${p1.points > 1 ? `points` : `point`} and Player 2 had`
-                                     +` ${p2.points} ${p2.points > 1 ? `points` : `point`}.`, 170, 460) : null
+        if (time <=0) {
+            this.ctx.fillText(`You had ${p1.points} ${p1.points > 1 ? `points` : `point`} and Player 2 had`
+                             +` ${p2.points} ${p2.points > 1 ? `points` : `point`}.`, 170, 460)
+        }
         this.ctx.restore()
     }
 }
-
-
-
-
-
-
-
-
-
-
-// Backup code
-
-// weHaveAWinner(player1,player2,player) {
-//     this.clearBoard()
-//     this.ctx.save()
-//     this.ctx.fillStyle = "black"
-//     this.ctx.font = "40px Arial";
-//     if (player1.hand.length > 0 && player2.hand.length > 0) {
-//         const totalPlayer1 = player1.hand.reduce((total, current) => total + current.value,0); 
-//         const totalPlayer2 = player2.hand.reduce((total, current) => total + current.value,0); 
-//         totalPlayer1 > totalPlayer2 ? this.ctx.fillText(`Timeout ! You lost !!! With ${totalPlayer1} points`, 75, this.canvas.height/2) :
-//                                              this.ctx.fillText(`Timeout ! You won !!! With ${totalPlayer1} points`, 75, this.canvas.height/2)   
-//     } else {
-//         let message = player.playerNumber === 1 ? 'You won !!!' : 'You lost !!!';
-//         this.ctx.fillText(message, this.canvas.width/3,this.canvas.height/2);
-//     }
-//     this.ctx.restore()
-// }

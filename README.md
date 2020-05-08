@@ -37,27 +37,27 @@ O : si la cuenta atras se acabo. Entonces gana el que menos puntos tiene ( carta
 
 ### User stories
 
-/!\ Cuando se acabe una, se hace un commit /!\
-
 1. Quiero poder iniciar el juego
 2. Quiero poder ver el deck
 3. Quiero poder recibir + ver mis cartas
 4. Quiero poder ver una primera carta en el centro de la mesa
 5. Quiero poder poner una carta (jugar)
 6. Quiero que el jugador 2 juegue despues de mi, aleatoriamente
-7. Quiero que las cartas se vean bonito
-8. Quiero poder distinguir las cartas que se pueden jugar
-9. Quiero poder ganar por puntos si la cuenta atras se acaba
-10. Quiero animaciones
-11. Quiero sonidos dinamicos
-12. Quiero poder decir "UNO"
-13. Quiero jugar con mas jugadores
-14. Quiero poder apostar
+7. El jugador 2 no podra jugar hasta que yo haya jugado. Los clics en el tablero no activaran nada a no ser que robe desde el deck, o que ponga una carta
+8. Quiero poder ganar por puntos si la cuenta atras se acaba
+9. Quiero ver la cuenta atras
+10. Quiero poder usar los comodines "Skip" & "Reverse"
+11. Quiero poder usar los comodines "+2"
+12. Quiero poder usar los comodines "Pickcolor"
+13. Quiero poder usar los comodines "+4"
+14. Quiero que las cartas sean bonitos (diseño)
+15. Quiero una musica mientras juegue, una de victoria, y tambien una si pierdo.
 
 ### MVP
 
 Las reglas se tienen que implementar poco a poco, iteracion por iteracion.
-El canvas y animaciones tambien
+
+El canvas y animaciones tambien.
 
 #### Iteracion 1 :
 
@@ -68,17 +68,16 @@ El canvas y animaciones tambien
 
 #### Iteracion 2 : 
 
-- Se pone en marcha el temporizador. Cuando se acabe, si les quedan cartas a los jugadores, ganara el que menos puntos tiene.
-(cartas con valor mas baja)
+- Se pone en marcha el temporizador. Cuando se acabe, si les quedan cartas a los jugadores, ganara el que menos puntos tiene (cartas con valor mas baja).
 
 #### Iteracion 3 : 
 
 - Se activan los comodines, por orden de prioridad :
-    - +2
     - Skip
+    - Reverse
+    - +2
     - Wild
     - Wild +4
-    - Reverse
 
 #### Iteracion 4 : 
 
@@ -99,19 +98,24 @@ El canvas y animaciones tambien
 ​
 ## Backlog
 
-= Vision de lo que se puede hacer en los proximos sprints.
-- Ordenado por prioridad.
+Quedan para hacer : 
+- Sonidos al jugar o robar una carta
+- Animaciones con framerate
+- Poder jugar el comodin "+4" si y solo si el jugador no tiene otras opciones
+- Poner un tiempo limitado para que el jugador juegue. Si se pasa, automaticamente se hace una acción automatica aleatoria en su lugar
+- Poder distinguir cartas que se pueden jugar en cada turno
+- Poder apostar si el otro jugadores tenia otras opciones al poner una carta "+4", si tenia, entonces tendra que robar 6 cartas. En este caso se cambiaria la otra regla detallada mas arriba
+- Poder jugar con mas jugadores
 
 ## Links
 
-### Git
+### GitHub
 
 Reposit : https://github.com/a-rolland/ironhackuno
 
+GitHub Pages : https://a-rolland.github.io/ironhackuno/
 
 ### Slides
-
-https://docs.google.com/presentation/d/1HKeGCFA3DNg3yjAFaanOXM-6uuQLDTPUnPCCuc2HRtc/edit#slide=id.p
 
 ### Kanban
 
